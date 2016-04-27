@@ -30,6 +30,7 @@ public:
     Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI);
     bool addPlayer(Player *newPlayer);
     Player* getCurrentPlayer();
+    bool getIsGameOver();
     void nextPlayer();
     void undo();
 };

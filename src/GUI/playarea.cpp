@@ -45,6 +45,10 @@ Game *playArea::getCurrentGame(){
     return newGame;
 }
 
+void playArea::showGameOverDialog(){
+
+}
+
 void playArea::changeDisc(int x, int y, bool isWhite){
     boardFields[x][y]->setDisc(isWhite);
 }
@@ -59,4 +63,8 @@ void playArea::freezeField(int x, int y){
 
 void playArea::unFreezeField(int x, int y){
     boardFields[x][y]->unFreeze();
+}
+
+void playArea::setGameState(int score1, int score2, bool isWhite){
+
 }

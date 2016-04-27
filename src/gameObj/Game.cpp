@@ -62,6 +62,10 @@ void Game::undo() {
 
 Player* Game::getCurrentPlayer(){ return currentPlayer; }
 
+bool Game::getIsGameOver(){
+    return gameOver;
+}
+
 bool Game::addPlayer(Player *newPlayer) {
 
     if(newPlayer->getIsWhite() && white == nullptr){

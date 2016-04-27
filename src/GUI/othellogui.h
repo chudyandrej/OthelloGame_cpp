@@ -24,6 +24,7 @@ public:
     void setSinglePlayer(bool single);
     void setGameMode(int mode);
     void setNames(std::string player1Name, std::string player2Name, std::string computerName);
+    void setFreezingOptions(int discs, int FTime, int CHTimer);
 
     int getBoardSize();
     int getGameMode();
@@ -31,6 +32,9 @@ public:
     std::string getP1Name();
     std::string getP2Name();
     std::string getComputerName();
+    int getDiscsToFreeze();
+    int getFrozeTime();
+    int getChangeTimer();
 
 
 private:
@@ -40,6 +44,9 @@ private:
     std::string player1Name;
     std::string player2Name;
     std::string computerName;
+    int discsToFreeze;
+    int frozeTime;
+    int changeTimer;
 
     QWidget *mainMenuPage;
     QWidget *gameModePage;

@@ -5,6 +5,16 @@ settings::settings(OthelloGUI *parent) : ui(new Ui::settings){
 
     ui->setupUi(this);
     this->parent = parent;
+
+
+    //load current settings
+    ui->player1TextField->setText(QString::fromUtf8(parent->getP1Name().c_str()));
+    ui->player2TextField->setText(QString::fromUtf8(parent->getP2Name().c_str()));
+    ui->computerTextField->setText(QString::fromUtf8(parent->getComputerName().c_str()));
+
+    ui->discsToFreezeTField->setText(QString::number(parent->getDiscsToFreeze()));
+    ui->frozeTimeTField->setText(QString::number(parent->getFrozeTime()));
+    ui->changerTimerTField->setText(QString::number(parent->getChangeTimer()));
 }
 
 settings::~settings(){
@@ -17,6 +27,15 @@ void settings::on_confirmBtn_clicked(){
     parent->setNames(ui->player1TextField->text().toLatin1().data(),    //convert QString to string
                      ui->player2TextField->text().toLatin1().data(),
                      ui->computerTextField->text().toLatin1().data());
+
+    int discs = ui->discsToFreezeTField->text().toInt();
+    int FTime = ui->frozeTimeTField->text().toInt();
+    int CHTimer = ui->changerTimerTField->text().toInt();
+
+    //check range
+
+
+    parent->setFreezingOptions(discs, FTime, CHTimer);
 
     this->~settings();
 }

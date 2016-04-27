@@ -52,7 +52,7 @@
     <item row="0" column="1">
      <widget class="QLineEdit" name="player1TextField">
       <property name="text">
-       <string>Player1</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -66,7 +66,7 @@
     <item row="1" column="1">
      <widget class="QLineEdit" name="player2TextField">
       <property name="text">
-       <string>Player2</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -80,16 +80,46 @@
     <item row="2" column="1">
      <widget class="QLineEdit" name="computerTextField">
       <property name="text">
-       <string>Computer</string>
+       <string/>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
+     <widget class="QLabel" name="discsToFreezeLabel">
+      <property name="text">
+       <string>Discs  to Freeze</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="frozeTimeLabel">
+      <property name="text">
+       <string>Froze TIme (sec)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="ChangeTimerLabel">
+      <property name="text">
+       <string>Change TImer (sec)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="2">
      <widget class="QLabel" name="label">
       <property name="text">
        <string/>
       </property>
      </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="discsToFreezeTField"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="frozeTimeTField"/>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="changerTimerTField"/>
     </item>
    </layout>
   </widget>

@@ -52,9 +52,9 @@ void boardFieldWidget::mousePressEvent(QMouseEvent *){
         //this->setStyleSheet("background-color:blue;border:2px solid black;");
         parent->getCurrentGame()->nextPlayer();
 
-        //if(parent->getCurrentGame().gameOver){
-            //show game over dialog
-        //}
+        if(parent->getCurrentGame()->getIsGameOver()){
+            parent->showGameOverDialog();
+        }
     }
 }
 

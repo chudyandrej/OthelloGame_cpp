@@ -5,7 +5,6 @@
 #include "Board.h"
 
 
-
 BoardField::BoardField(int row, int col, int size){
         this->row = row;
         this->col = col;

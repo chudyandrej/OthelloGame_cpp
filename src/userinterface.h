@@ -10,7 +10,7 @@ public:
     virtual void deleteDisc(int x, int y)=0;
     virtual void freezeField(int x, int y)=0;
     virtual void unFreezeField(int x, int y)=0;
-    //virtual void setGameState()=0;
+    virtual void setGameState(int score1, int score2, bool isWhite)=0;
 
 };
 

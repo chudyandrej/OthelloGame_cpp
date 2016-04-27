@@ -46,6 +46,12 @@ void OthelloGUI::setNames(std::string player1Name, std::string player2Name, std:
     this->computerName = computerName;
 }
 
+void OthelloGUI::setFreezingOptions(int discs, int FTime, int CHTimer){
+    discsToFreeze = discs;
+    frozeTime = FTime;
+    changeTimer = CHTimer;
+}
+
 void OthelloGUI::setWidget(int page){
     switch(page){
         case 1:
@@ -92,4 +98,16 @@ std::string OthelloGUI::getP2Name(){
 
 std::string OthelloGUI::getComputerName(){
     return computerName;
+}
+
+int OthelloGUI::getDiscsToFreeze(){
+    return discsToFreeze;
+}
+
+int OthelloGUI::getFrozeTime(){
+    return frozeTime;
+}
+
+int OthelloGUI::getChangeTimer(){
+    return changeTimer;
 }
