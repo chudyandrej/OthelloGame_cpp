@@ -4,6 +4,17 @@
 
 #include "Game.h"
 
+
+Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UInt) {
+    UserInt = UInt;
+    rules = new ReversiRules(size);
+    sizeBoard = size;
+    gameOver = false;
+    currentPlayer = white;
+
+}
+
+
 void Game::nextPlayer() {
     rules->calcScore(currentPlayer);
 
@@ -48,15 +59,8 @@ void Game::undo() {
 
 }
 
-Game::Game(int size, int discsToFreeze, int CHTime, int FTime) {
 
-    rules = new ReversiRules(size);
-    sizeBoard = size;
-    gameOver = false;
-    currentPlayer = white;
-
-
-}
+Player* Game::getCurrentPlayer(){ return currentPlayer; }
 
 bool Game::addPlayer(Player *newPlayer) {
 

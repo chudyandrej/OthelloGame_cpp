@@ -6,8 +6,7 @@
 
 
 
-
-BoardField::BoardField(int row, int col, int size) {
+BoardField::BoardField(int row, int col, int size){
         this->row = row;
         this->col = col;
         this->size = size;
@@ -51,11 +50,19 @@ bool BoardField::putDisk(Disk *disk) {
 
     bool ret_val = false;
     if (this->disk == nullptr){
-        disk->setY(row,col);
+        disk->setY(row, col, UserInt);
         this->disk = disk;
         ret_val = true;
     }
     return ret_val;
 
+}
+
+Disk* BoardField::getDisk(){
+    return disk;
+}
+
+bool BoardField::getFreezeEnd() {
+    return freezeEnd;
 }
 

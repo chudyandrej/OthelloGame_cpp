@@ -24,7 +24,13 @@ public:
     void setSinglePlayer(bool single);
     void setGameMode(int mode);
     void setNames(std::string player1Name, std::string player2Name, std::string computerName);
+
     int getBoardSize();
+    int getGameMode();
+    bool getIsGameSinglePlayer();
+    std::string getP1Name();
+    std::string getP2Name();
+    std::string getComputerName();
 
 
 private:

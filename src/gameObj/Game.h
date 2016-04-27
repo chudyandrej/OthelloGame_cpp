@@ -8,13 +8,13 @@
 #include <vector>
 #include <string>
 #include "../board/Board.h"
+#include "../userinterface.h"
 
 
 class Player;
-
 class ReversiRules;
-
 extern ReversiRules *rules;
+
 
 class Game {
 
@@ -25,10 +25,11 @@ private:
     Player *white = nullptr;
     bool gameOver;
 
+
 public:
-    Game(int size, int discsToFreeze, int CHTime, int FTime);
+    Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI);
     bool addPlayer(Player *newPlayer);
-    Player* getCurrentPlayer(){ return currentPlayer; }
+    Player* getCurrentPlayer();
     void nextPlayer();
     void undo();
 };
@@ -38,21 +39,10 @@ class ReversiRules {
 private:
     int size;
     Board *playBoard;
+
 public:
-
-    ReversiRules(int size){
-        this->size = size;
-        playBoard =  new Board(size);
-
-        //starting position
-        board_fields[ (size/2)-1][(size/2)-1]->putDisk(new Disk(true));
-        board_fields[(size/2)][(size/2)]->putDisk(new Disk(true));
-        board_fields[(size/2)-1][(size/2)]->putDisk(new Disk(false));
-        board_fields[(size/2)][(size/2)-1]->putDisk(new Disk(false));
-    }
-    int getSize(){
-        return size;
-    }
+    ReversiRules(int size);
+    int getSize();
 
     bool canPutDisk(int x, int y, Player *playerTurn);
     bool putDisk(int x, int y, Player* playerTurn);

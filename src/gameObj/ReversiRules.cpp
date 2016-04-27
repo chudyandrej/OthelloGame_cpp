@@ -2,10 +2,21 @@
 // Created by Andrej Oliver Chudý on 24/04/16.
 //
 
-
-
 #include "Game.h"
 
+
+
+ReversiRules::ReversiRules(int size){
+    this->size = size;
+    playBoard =  new Board(size);
+
+
+    //starting position
+    board_fields[ (size/2)-1][(size/2)-1]->putDisk(new Disk(true));
+    board_fields[(size/2)][(size/2)]->putDisk(new Disk(true));
+    board_fields[(size/2)-1][(size/2)]->putDisk(new Disk(false));
+    board_fields[(size/2)][(size/2)-1]->putDisk(new Disk(false));
+}
 
 bool ReversiRules::canPutDisk(int x, int y, Player *playerTurn) {
     BoardField* b_field =  board_fields[x][y];
@@ -69,7 +80,7 @@ void ReversiRules::turn_disks(std::vector<BoardField *> st) {
     BoardField* tmp;
     while (!st.empty()){
         tmp = st.back();
-        tmp->getDisk()->turn();
+        tmp->getDisk()->turn(UserInt);
         st.pop_back();
     }
 
@@ -145,6 +156,9 @@ bool ReversiRules::isExitsingTurn(Player *currentPlayer) {
     return false;
 }
 
+int ReversiRules::getSize(){
+    return size;
+}
 
 
 

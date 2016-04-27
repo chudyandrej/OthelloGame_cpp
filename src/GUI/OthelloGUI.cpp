@@ -73,3 +73,23 @@ void OthelloGUI::setWidget(int page){
 int OthelloGUI::getBoardSize(){
     return boardSize;
 }
+
+int OthelloGUI::getGameMode(){
+    return gameMode;
+}
+
+bool OthelloGUI::getIsGameSinglePlayer(){
+    return singlePlayer;
+}
+
+std::string OthelloGUI::getP1Name(){
+    return player1Name;
+}
+
+std::string OthelloGUI::getP2Name(){
+    return player2Name;
+}
+
+std::string OthelloGUI::getComputerName(){
+    return computerName;
+}

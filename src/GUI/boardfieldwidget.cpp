@@ -1,10 +1,12 @@
 #include "boardfieldwidget.h"
 
 
-boardFieldWidget::boardFieldWidget(int x, int y) : ui(new Ui::boardFieldWidget){
+boardFieldWidget::boardFieldWidget(int x, int y, playArea *parent) : ui(new Ui::boardFieldWidget) {
 
     ui->setupUi(this);
+    this->parent = parent;
     pressed = false;
+    frozen = false;
     //QPixmap pixmap = QPixmap (":/images/lib/field.png");
     this->setStyleSheet("background-color:green;border:2px solid black;");//setWindowIcon(QIcon(":/lib/field.png"));//setWindowIcon(QIcon(pixmap));////
     this->x = x;
@@ -28,7 +30,7 @@ void boardFieldWidget::setDisc(bool isWhite){
 
 void boardFieldWidget::deleteDisc(){
     pressed = false;
-     this->setStyleSheet("background-color:green;border:2px solid black;");
+    this->setStyleSheet("background-color:green;border:2px solid black;");
 }
 
 void boardFieldWidget::freeze(){
@@ -43,18 +45,28 @@ void boardFieldWidget::unFreeze(){
 }
 
 void boardFieldWidget::mousePressEvent(QMouseEvent *){
-     pressed = true;
-     this->setStyleSheet("background-color:blue;border:2px solid black;");
+    Player *tmp = parent->getCurrentGame()->getCurrentPlayer();
+
+    if(tmp->putDisk(x, y)){
+        pressed = true;
+        //this->setStyleSheet("background-color:blue;border:2px solid black;");
+        parent->getCurrentGame()->nextPlayer();
+
+        //if(parent->getCurrentGame().gameOver){
+            //show game over dialog
+        //}
+    }
 }
 
 void boardFieldWidget::mouseMoveEvent(QMouseEvent *){
-    if(!pressed){
+
+    if(parent->getCurrentGame()->getCurrentPlayer()->canPutDisk(x, y)){
         this->setStyleSheet("background-color:yellow;border:2px solid black;");
     }
 }
 
 void boardFieldWidget::leaveEvent(QEvent *){
-    if(!pressed){
+    if(!pressed && !frozen){    //if there is no disc and it's not frozen
         this->setStyleSheet("background-color:green;border:2px solid black;");
     }
 }
