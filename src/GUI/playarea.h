@@ -2,11 +2,13 @@
 #define PLAYAREA_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "othellogui.h"
 class playArea;
 #include "boardfieldwidget.h"
 #include "ui_playarea.h"
 #include "../userinterface.h"
+#include <sstream>
 
 
 namespace Ui {
@@ -27,7 +29,16 @@ private:
     Ui::playArea *ui;
     OthelloGUI *parent;
     Game *newGame;
+    Player *player1;
+    Player *player2;
     boardFieldWidget *boardFields[12][12];
+    int score1;
+    int score2;
+
+    std::string gameOverDialogMsg();
+    std::string createSinglePlayerGameOverMsg();
+    std::string createMultiPlayerGameOverMsg();
+    void initNewGame();
 
     void changeDisc(int x, int y, bool isWhite);
     void deleteDisc(int x, int y);

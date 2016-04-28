@@ -77,6 +77,10 @@ public:
         this->name = name;
     }
 
+    std::string getName(){
+        return this->name;
+    }
+
     bool getIsWhite(){
         return isWhite;
     }

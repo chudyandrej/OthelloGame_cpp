@@ -76,6 +76,11 @@ void OthelloGUI::setWidget(int page){
     }
 }
 
+void OthelloGUI::initMenuAgain(){
+    delete gameModePage;
+    delete chooseBoardSizePage;
+}
+
 int OthelloGUI::getBoardSize(){
     return boardSize;
 }

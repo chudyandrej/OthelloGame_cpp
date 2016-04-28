@@ -140,7 +140,7 @@ void ReversiRules::calcScore(Player *currentPlayer) {
             else if(!tmp->getIsWhite()){ blac_Dsik++; }
         }
     }
-   //BoardGUI.setGameState(white_Disk, blac_Dsik, currentPlayer.isWhite());
+   UserInt->setGameState(white_Disk, blac_Dsik, currentPlayer->getIsWhite());
 
 }
 

@@ -20,6 +20,7 @@ public:
     ~OthelloGUI();
 
     void setWidget(int page);
+    void initMenuAgain();
     void setBoardSize(int size);
     void setSinglePlayer(bool single);
     void setGameMode(int mode);

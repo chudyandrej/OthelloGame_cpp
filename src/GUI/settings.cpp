@@ -33,9 +33,11 @@ void settings::on_confirmBtn_clicked(){
     int CHTimer = ui->changerTimerTField->text().toInt();
 
     //check range
-
-
-    parent->setFreezingOptions(discs, FTime, CHTimer);
-
-    this->~settings();
+    if(discs > 24 || discs < 0 || FTime > 100 || FTime < 0 || CHTimer > 100 || CHTimer < 0){
+        QMessageBox::warning(this, "WARNING", "Please, make sure, time is in <0, 100> and discs in <0, 24> range");
+    }
+    else{
+        parent->setFreezingOptions(discs, FTime, CHTimer);
+        this->~settings();
+    }
 }

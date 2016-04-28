@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "othellogui.h"
 #include "ui_settings.h"
 
