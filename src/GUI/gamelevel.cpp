@@ -5,6 +5,8 @@ GameLevel::GameLevel(OthelloGUI *parent) : ui(new Ui::GameLevel){
 
     this->parent = parent;
     ui->setupUi(this);
+
+    this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
 }
 
 GameLevel::~GameLevel(){

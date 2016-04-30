@@ -7,8 +7,9 @@ boardFieldWidget::boardFieldWidget(int x, int y, playArea *parent) : ui(new Ui::
     this->parent = parent;
     pressed = false;
     frozen = false;
-    //QPixmap pixmap = QPixmap (":/images/lib/field.png");
-    this->setStyleSheet("background-color:green;border:2px solid black;");//setWindowIcon(QIcon(":/lib/field.png"));//setWindowIcon(QIcon(pixmap));////
+
+    this->setStyleSheet("QWidget {background-image: url( :/lib/field.png);border:2px solid black;}");
+
     this->x = x;
     this->y = y;
 
@@ -22,15 +23,15 @@ boardFieldWidget::~boardFieldWidget(){
 void boardFieldWidget::setDisc(bool isWhite){
     pressed = true;
     if(isWhite){
-        this->setStyleSheet("background-color:white;border:2px solid black;");
+        this->setStyleSheet("QWidget {background-image: url( :/lib/white2.png);border:2px solid black;}");
     }else{
-         this->setStyleSheet("background-color:black;border:2px solid black;");
+        this->setStyleSheet("QWidget {background-image: url( :/lib/black2.png);border:2px solid black;}");
     }
 }
 
 void boardFieldWidget::deleteDisc(){
     pressed = false;
-    this->setStyleSheet("background-color:green;border:2px solid black;");
+    this->setStyleSheet("QWidget {background-image: url( :/lib/field.png);border:2px solid black;}");
 }
 
 void boardFieldWidget::freeze(){
@@ -49,7 +50,6 @@ void boardFieldWidget::mousePressEvent(QMouseEvent *){
 
     if(tmp->putDisk(x, y)){
         pressed = true;
-        //this->setStyleSheet("background-color:blue;border:2px solid black;");
         parent->getCurrentGame()->nextPlayer();
 
         if(parent->getCurrentGame()->getIsGameOver()){
@@ -61,13 +61,13 @@ void boardFieldWidget::mousePressEvent(QMouseEvent *){
 void boardFieldWidget::mouseMoveEvent(QMouseEvent *){
 
     if(parent->getCurrentGame()->getCurrentPlayer()->canPutDisk(x, y)){
-        this->setStyleSheet("background-color:yellow;border:2px solid black;");
+        this->setStyleSheet("QWidget {background-image: url( :/lib/fieldCanPut.png);border:2px solid black;}");
     }
 }
 
 void boardFieldWidget::leaveEvent(QEvent *){
     if(!pressed && !frozen){    //if there is no disc and it's not frozen
-        this->setStyleSheet("background-color:green;border:2px solid black;");
+        this->setStyleSheet("QWidget {background-image: url( :/lib/field.png);border:2px solid black;}");
     }
 }
 

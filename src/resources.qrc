@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>lib/arrow_l.png</file>
+        <file>lib/arrow_r.png</file>
+        <file>lib/background.jpg</file>
+        <file>lib/black2.png</file>
+        <file>lib/black2frozen.png</file>
+        <file>lib/blackDisc.png</file>
+        <file>lib/button.jpg</file>
+        <file>lib/button5.jpg</file>
+        <file>lib/field.png</file>
+        <file>lib/fieldCanPut.png</file>
+        <file>lib/fieldFrozen.png</file>
+        <file>lib/white2.png</file>
+        <file>lib/white2frozen.png</file>
+        <file>lib/whiteDisc.png</file>
+        <file>lib/icons/home.png</file>
+        <file>lib/icons/homeEntered.png</file>
+        <file>lib/icons/homePressed.png</file>
+        <file>lib/icons/playAgain.png</file>
+        <file>lib/icons/playAgainEntered.png</file>
+        <file>lib/icons/playAgainPressed.png</file>
+        <file>lib/icons/saveGame.png</file>
+        <file>lib/icons/saveGameEntered.png</file>
+        <file>lib/icons/saveGamePressed.png</file>
+        <file>lib/icons/undo.png</file>
+        <file>lib/icons/undoEntered.png</file>
+        <file>lib/icons/undoPressed.png</file>
+    </qresource>
+</RCC>

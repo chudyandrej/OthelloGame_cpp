@@ -6,6 +6,7 @@ settings::settings(OthelloGUI *parent) : ui(new Ui::settings){
     ui->setupUi(this);
     this->parent = parent;
 
+    this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
 
     //load current settings
     ui->player1TextField->setText(QString::fromUtf8(parent->getP1Name().c_str()));

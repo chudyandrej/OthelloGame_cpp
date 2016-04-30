@@ -1,5 +1,6 @@
 #include "playarea.h"
 #include <stdio.h>
+#include <QMouseEvent>
 
 
 playArea::playArea(OthelloGUI *parent) : ui(new Ui::playArea){
@@ -7,7 +8,18 @@ playArea::playArea(OthelloGUI *parent) : ui(new Ui::playArea){
     ui->setupUi(this);
     this->parent = parent;
 
+    this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
+
     initNewGame();
+
+    ui->reloadGameLabel->setStyleSheet("background-image: url(:/lib/icons/playAgain.png)");
+    ui->homeLabel->setStyleSheet("background-image: url(:/lib/icons/home.png)");
+    ui->undoLabel->setStyleSheet("background-image: url(:/lib/icons/undo.png)");
+    ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGame.png)");
+
+    connect(ui->saveLabel, SIGNAL(linkHovered(QString)), this, SLOT(on_saveLabel_linkHovered()));
+    connect(ui->saveLabel, SIGNAL(linkActivated(QString)), this, SLOT(on_saveLabel_linkActivated()));
+
 }
 
 
@@ -95,7 +107,12 @@ void playArea::unFreezeField(int x, int y){
 }
 
 void playArea::setGameState(int score1, int score2, bool isWhite){
-    //arrow rotate
+    if(isWhite){
+        ui->scoreArrayLabel->setStyleSheet("QLabel {background-image: url(:/lib/arrow_r.png)}");
+    }
+    else{
+        ui->scoreArrayLabel->setStyleSheet("QLabel {background-image: url(:/lib/arrow_l.png)}");
+    }
     ui->score1Label->setText(QString::number(score1));
     ui->score2Label->setText(QString::number(score2));
     this->score1 = score1;
@@ -140,4 +157,13 @@ std::string playArea::createMultiPlayerGameOverMsg(){
         msg = player2->getName() + " won with score: " + std::to_string(score2);
     }
     return msg;
+}
+
+
+void playArea::on_saveLabel_linkHovered(){
+    ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
+}
+
+void playArea::on_saveLabel_linkActivated(){
+     ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");
 }

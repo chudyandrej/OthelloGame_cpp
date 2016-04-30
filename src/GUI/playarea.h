@@ -6,6 +6,7 @@
 #include "othellogui.h"
 class playArea;
 #include "boardfieldwidget.h"
+#include "playareaicon.h"
 #include "ui_playarea.h"
 #include "../userinterface.h"
 #include <sstream>
@@ -24,6 +25,13 @@ public:
     ~playArea();
     Game *getCurrentGame();
     void showGameOverDialog();
+
+private slots:
+    void on_saveLabel_linkHovered();
+    void on_saveLabel_linkActivated();
+
+signals:
+    void linkHovered(QString);
 
 private:
     Ui::playArea *ui;
@@ -45,6 +53,7 @@ private:
     void freezeField(int x, int y);
     void unFreezeField(int x, int y);
     void setGameState(int score1, int score2, bool isWhite);
+
 };
 
 #endif // PLAYAREA_H

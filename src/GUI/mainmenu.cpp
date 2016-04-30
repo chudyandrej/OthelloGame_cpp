@@ -6,10 +6,7 @@ mainMenu::mainMenu(OthelloGUI *parent) :  ui(new Ui::mainMenu){
     this->parent = parent;
     ui->setupUi(this);
 
-    //QPixmap pixmap(":/images/lib/button.jpg");
-    //QIcon ButtonIcon(pixmap);
-    //ui->singlePlayerBtn->setIcon(ButtonIcon);
-    //ui->singlePlayerBtn->setIconSize(pixmap.rect().size());
+    this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
 
 }
 

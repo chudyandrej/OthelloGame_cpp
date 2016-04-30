@@ -6,6 +6,8 @@ chooseBoardSize::chooseBoardSize(OthelloGUI *parent) : ui(new Ui::chooseBoardSiz
     ui->setupUi(this);
     this->parent = parent;
     parent->setBoardSize(8); //set default value
+
+    this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
 }
 
 chooseBoardSize::~chooseBoardSize(){
