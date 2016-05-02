@@ -48,6 +48,12 @@
      <height>400</height>
     </rect>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>270</width>
+     <height>270</height>
+    </size>
+   </property>
   </widget>
   <widget class="QLabel" name="score1Label">
    <property name="geometry">

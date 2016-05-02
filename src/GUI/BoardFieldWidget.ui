@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>40</width>
-    <height>40</height>
+    <width>45</width>
+    <height>45</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>45</width>
+    <height>45</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>45</width>
+    <height>45</height>
+   </size>
   </property>
   <property name="mouseTracking">
    <bool>true</bool>

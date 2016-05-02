@@ -4,15 +4,20 @@
 #include <QMouseEvent>
 #include <QEvent>
 #include <QLabel>
-#include "playarea.h"
+#include <QMessageBox>
+#include "PlayArea.h"
+#include "OthelloGUI.h"
 
-class playAreaIcon : public QLabel{
+class PlayAreaIcon : public QLabel{
      //Q_OBJECT
 
 public:
-    playAreaIcon(int x);
+    PlayAreaIcon(int x,PlayArea *parent, OthelloGUI *grandParent);
 
 private:
+    OthelloGUI *grandParent = nullptr;
+    PlayArea *parent = nullptr;
+
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);

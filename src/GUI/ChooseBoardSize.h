@@ -2,20 +2,20 @@
 #define CHOOSEBOARDSIZE_H
 
 #include "ui_chooseboardsize.h"
-#include "othellogui.h"
+#include "OthelloGUI.h"
 #include <QDialog>
 
 namespace Ui {
-class chooseBoardSize;
+class ChooseBoardSize;
 }
 
-class chooseBoardSize : public QDialog
+class ChooseBoardSize : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit chooseBoardSize(OthelloGUI *parent = 0);
-    ~chooseBoardSize();
+    explicit ChooseBoardSize(OthelloGUI *parent = 0);
+    ~ChooseBoardSize();
 
 
 private slots:
@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::chooseBoardSize *ui;
-    OthelloGUI *parent;
+    OthelloGUI *parent = nullptr;
 };
 
 #endif // CHOOSEBOARDSIZE_H

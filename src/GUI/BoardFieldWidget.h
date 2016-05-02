@@ -7,20 +7,20 @@
 #include <QDebug>
 #include "ui_boardfieldwidget.h"
 #include "../gameObj/Game.h"
-class boardFieldWidget;
-#include "playarea.h"
+class BoardFieldWidget;
+#include "PlayArea.h"
 
 namespace Ui {
-    class boardFieldWidget;
+    class BoardFieldWidget;
 }
 
-class boardFieldWidget : public QDialog{
+class BoardFieldWidget : public QDialog{
 
     Q_OBJECT
 
 public:
-    explicit boardFieldWidget(int x, int y, playArea *parent = 0);
-    ~boardFieldWidget();    
+    explicit BoardFieldWidget(int x, int y, PlayArea *parent = 0);
+    ~BoardFieldWidget();
     void setDisc(bool isWhite);
     void deleteDisc();
     void freeze();
@@ -28,8 +28,8 @@ public:
 
 
 private:
-    Ui::boardFieldWidget *ui;
-    playArea *parent;
+    Ui::BoardFieldWidget *ui;
+    PlayArea *parent = nullptr;
 
     bool pressed;
     bool frozen;

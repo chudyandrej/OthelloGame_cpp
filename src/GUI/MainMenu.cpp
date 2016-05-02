@@ -1,7 +1,7 @@
-#include "mainmenu.h"
+#include "MainMenu.h"
 
 
-mainMenu::mainMenu(OthelloGUI *parent) :  ui(new Ui::mainMenu){
+MainMenu::MainMenu(OthelloGUI *parent) :  ui(new Ui::mainMenu){
 
     this->parent = parent;
     ui->setupUi(this);
@@ -10,29 +10,29 @@ mainMenu::mainMenu(OthelloGUI *parent) :  ui(new Ui::mainMenu){
 
 }
 
-mainMenu::~mainMenu(){
+MainMenu::~MainMenu(){
     delete ui;
 }
 
 
-void mainMenu::on_singlePlayerBtn_clicked(){
+void MainMenu::on_singlePlayerBtn_clicked(){
     parent->setWidget(1);
     parent->setSinglePlayer(true);
 }
 
-void mainMenu::on_multiPlayerBtn_clicked(){
+void MainMenu::on_multiPlayerBtn_clicked(){
     parent->setWidget(2);
     parent->setSinglePlayer(false);
 }
 
-void mainMenu::on_loadGameBtn_clicked(){
+void MainMenu::on_loadGameBtn_clicked(){
     //code will go here
 }
 
-void mainMenu::on_settingsBtn_clicked(){
+void MainMenu::on_settingsBtn_clicked(){
     parent->setWidget(3);
 }
 
-void mainMenu::on_quitBtn_clicked(){
+void MainMenu::on_quitBtn_clicked(){
     parent->exit();
 }

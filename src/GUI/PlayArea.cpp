@@ -1,9 +1,8 @@
-#include "playarea.h"
+#include "PlayArea.h"
 #include <stdio.h>
-#include <QMouseEvent>
 
 
-playArea::playArea(OthelloGUI *parent) : ui(new Ui::playArea){
+PlayArea::PlayArea(OthelloGUI *parent) : ui(new Ui::playArea){
 
     ui->setupUi(this);
     this->parent = parent;
@@ -12,28 +11,27 @@ playArea::playArea(OthelloGUI *parent) : ui(new Ui::playArea){
 
     initNewGame();
 
+    //set icons above board
     QGridLayout *grid = new QGridLayout;
     ui->iconsContainerWidget->setLayout(grid);
 
-
-
-    grid->addWidget(new playAreaIcon(0), 0,0, -1,-1,0);
-    grid->addWidget(new playAreaIcon(1), 0,1, -1,-1,0);
-    grid->addWidget(new playAreaIcon(2), 0,2, -1,-1,0);
-    grid->addWidget(new playAreaIcon(3), 0,3, -1,-1,0);
+    grid->addWidget(new PlayAreaIcon(0, this, parent), 0,0, -1,-1,0);
+    grid->addWidget(new PlayAreaIcon(1, this, parent), 0,1, -1,-1,0);
+    grid->addWidget(new PlayAreaIcon(2, this, parent), 0,2, -1,-1,0);
+    grid->addWidget(new PlayAreaIcon(3, this, parent), 0,3, -1,-1,0);
 
 }
 
 
-playArea::~playArea(){
+PlayArea::~PlayArea(){
     delete ui;
 }
 
-Game *playArea::getCurrentGame(){
+Game *PlayArea::getCurrentGame(){
     return newGame;
 }
 
-void playArea::showGameOverDialog(){
+void PlayArea::showGameOverDialog(){
     std::string msg = gameOverDialogMsg();
 
     QMessageBox::StandardButton reply;
@@ -42,19 +40,17 @@ void playArea::showGameOverDialog(){
       if (reply == QMessageBox::Yes) {
         //start new game
         //delete game? delete players and board?
-        this->initNewGame();
+        parent->setWidget(4);
       }
       else {
          //go to main menu
-          this->~playArea();
+          this->~PlayArea();
           parent->initMenuAgain();
       }
 }
 
-void playArea::initNewGame(){
+void PlayArea::initNewGame(){
     int size = parent->getBoardSize();
-    //boardFieldWidget *boardFields[size][size];
-
 
     //create board
     QGridLayout *grid = new QGridLayout;
@@ -62,7 +58,7 @@ void playArea::initNewGame(){
 
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
-            boardFields[i][j] = new boardFieldWidget(i, j, this);
+            boardFields[i][j] = new BoardFieldWidget(i, j, this);
             grid->addWidget(boardFields[i][j],i,j,-1,-1,0 );
         }
     }
@@ -92,23 +88,23 @@ void playArea::initNewGame(){
     setGameState(2, 2, false);
 }
 
-void playArea::changeDisc(int x, int y, bool isWhite){
+void PlayArea::changeDisc(int x, int y, bool isWhite){
     boardFields[x][y]->setDisc(isWhite);
 }
 
-void playArea::deleteDisc(int x, int y){
+void PlayArea::deleteDisc(int x, int y){
     boardFields[x][y]->deleteDisc();
 }
 
-void playArea::freezeField(int x, int y){
+void PlayArea::freezeField(int x, int y){
     boardFields[x][y]->freeze();
 }
 
-void playArea::unFreezeField(int x, int y){
+void PlayArea::unFreezeField(int x, int y){
     boardFields[x][y]->unFreeze();
 }
 
-void playArea::setGameState(int score1, int score2, bool isWhite){
+void PlayArea::setGameState(int score1, int score2, bool isWhite){
     if(isWhite){
         ui->scoreArrayLabel->setStyleSheet("QLabel {background-image: url(:/lib/arrow_r.png)}");
     }
@@ -122,7 +118,7 @@ void playArea::setGameState(int score1, int score2, bool isWhite){
 }
 
 
-std::string playArea::gameOverDialogMsg(){
+std::string PlayArea::gameOverDialogMsg(){
     std::string msg;
     if (score1 == score2){      //stalemate
         msg = "Stalemate! Winners:\n  -"+player1->getName()+"\n  -"+player2->getName()+"\nScore: "+std::to_string(score1);
@@ -138,7 +134,7 @@ std::string playArea::gameOverDialogMsg(){
     return msg;
 }
 
-std::string playArea::createSinglePlayerGameOverMsg(){
+std::string PlayArea::createSinglePlayerGameOverMsg(){
    std::string msg;
    if(player1->getIs_pc()) {
        msg = (score1 > score2) ? "You LOST. Computer won.\n" : "Congratulation!\nYou WON.\n";
@@ -151,7 +147,7 @@ std::string playArea::createSinglePlayerGameOverMsg(){
    return msg;
 }
 
-std::string playArea::createMultiPlayerGameOverMsg(){
+std::string PlayArea::createMultiPlayerGameOverMsg(){
     std::string msg;
     if(score1 > score2){        //player1 won
         msg = player1->getName() + " won with score: " + std::to_string(score1);
@@ -159,13 +155,4 @@ std::string playArea::createMultiPlayerGameOverMsg(){
         msg = player2->getName() + " won with score: " + std::to_string(score2);
     }
     return msg;
-}
-
-
-void playArea::on_saveLabel_linkHovered(){
-    //ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
-}
-
-void playArea::on_saveLabel_linkActivated(){
-     //ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");
 }

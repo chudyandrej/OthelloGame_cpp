@@ -3,27 +3,27 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include "othellogui.h"
+#include "OthelloGUI.h"
 #include "ui_settings.h"
 
 namespace Ui {
-class settings;
+class Settings;
 }
 
-class settings : public QDialog
+class Settings : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit settings(OthelloGUI *parent = 0);
-    ~settings();
+    explicit Settings(OthelloGUI *parent = 0);
+    ~Settings();
 
 private slots:
     void on_confirmBtn_clicked();
 
 private:
-    Ui::settings *ui;
-    OthelloGUI *parent;
+    Ui::settings *ui = nullptr;
+    OthelloGUI *parent = nullptr;
 
 };
 

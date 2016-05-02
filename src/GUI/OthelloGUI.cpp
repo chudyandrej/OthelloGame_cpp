@@ -1,4 +1,4 @@
-#include "othellogui.h"
+#include "OthelloGUI.h"
 #include <iostream> //just temporary
 
 
@@ -11,7 +11,7 @@ OthelloGUI::OthelloGUI(int argc, char *argv[]) : QApplication(argc, argv){
     computerName = "Computer";
 
 
-    mainMenuPage = new mainMenu(this);
+    mainMenuPage = new MainMenu(this);
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(mainMenuPage);
     stackedWidget->show();
@@ -24,7 +24,6 @@ OthelloGUI::~OthelloGUI(){
 
     delete mainMenuPage;
     delete stackedWidget;
-
 }
 
 void OthelloGUI::setBoardSize(int size){
@@ -32,7 +31,6 @@ void OthelloGUI::setBoardSize(int size){
 }
 
 void OthelloGUI::setSinglePlayer(bool single){
-    //std::cout << player1Name <<" "<< player2Name << " "<< computerName <<"\n";
     singlePlayer = single;
 }
 
@@ -60,25 +58,30 @@ void OthelloGUI::setWidget(int page){
             stackedWidget->setCurrentWidget(gameModePage);
             break;
         case 2:
-            chooseBoardSizePage = new chooseBoardSize(this);
+            chooseBoardSizePage = new ChooseBoardSize(this);
             stackedWidget->addWidget(chooseBoardSizePage);
             stackedWidget->setCurrentWidget(chooseBoardSizePage);
             break;
         case 3:
-            settingsPage = new settings(this);
+            settingsPage = new Settings(this);
             stackedWidget->addWidget(settingsPage);
             stackedWidget->setCurrentWidget(settingsPage);
             break;
         case 4:
-            playAreaPage = new playArea(this);
+            playAreaPage = new PlayArea(this);
             stackedWidget->addWidget(playAreaPage);
             stackedWidget->setCurrentWidget(playAreaPage);
     }
 }
 
 void OthelloGUI::initMenuAgain(){
-    delete gameModePage;
-    delete chooseBoardSizePage;
+    if(gameModePage != nullptr){
+        delete gameModePage;
+        gameModePage = nullptr;
+    }
+    if(chooseBoardSizePage != nullptr){
+        delete chooseBoardSizePage;
+    }
 }
 
 int OthelloGUI::getBoardSize(){

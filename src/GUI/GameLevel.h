@@ -2,7 +2,7 @@
 #define GAMELEVEL_H
 
 #include "ui_gamelevel.h"
-#include "othellogui.h"
+#include "OthelloGUI.h"
 #include <QDialog>
 
 namespace Ui {
@@ -23,8 +23,8 @@ private slots:
     void on_backBtn_clicked();
 
 private:
-    Ui::GameLevel *ui;
-    OthelloGUI *parent;
+    Ui::GameLevel *ui = nullptr;
+    OthelloGUI *parent = nullptr;
 };
 
 #endif // GAMELEVEL_H

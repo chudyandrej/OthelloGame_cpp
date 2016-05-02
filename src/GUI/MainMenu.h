@@ -2,20 +2,20 @@
 #define MAINMENU_H
 
 #include "ui_mainmenu.h"
-#include "othellogui.h"
+#include "OthelloGUI.h"
 #include <QDialog>
 
 namespace Ui {
-    class mainMenu;
+    class MainMenu;
 }
 
-class mainMenu :  public QDialog{
+class MainMenu :  public QDialog{
 
     Q_OBJECT
 
 public:
-    explicit mainMenu(OthelloGUI *parent = 0);
-    ~mainMenu();
+    explicit MainMenu(OthelloGUI *parent = 0);
+    ~MainMenu();
 
 
 private slots:
@@ -26,8 +26,8 @@ private slots:
     void on_quitBtn_clicked();
 
 private:
-    Ui::mainMenu *ui;
-    OthelloGUI *parent;
+    Ui::mainMenu *ui = nullptr;
+    OthelloGUI *parent = nullptr;
 };
 
 #endif // MAINMENU_H

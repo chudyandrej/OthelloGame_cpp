@@ -1,7 +1,7 @@
-#include "settings.h"
+#include "Settings.h"
 
 
-settings::settings(OthelloGUI *parent) : ui(new Ui::settings){
+Settings::Settings(OthelloGUI *parent) : ui(new Ui::settings){
 
     ui->setupUi(this);
     this->parent = parent;
@@ -18,12 +18,12 @@ settings::settings(OthelloGUI *parent) : ui(new Ui::settings){
     ui->changerTimerTField->setText(QString::number(parent->getChangeTimer()));
 }
 
-settings::~settings(){
+Settings::~Settings(){
     delete ui;
 }
 
 
-void settings::on_confirmBtn_clicked(){
+void Settings::on_confirmBtn_clicked(){
 
     parent->setNames(ui->player1TextField->text().toLatin1().data(),    //convert QString to string
                      ui->player2TextField->text().toLatin1().data(),
@@ -39,6 +39,6 @@ void settings::on_confirmBtn_clicked(){
     }
     else{
         parent->setFreezingOptions(discs, FTime, CHTimer);
-        this->~settings();
+        this->~Settings();
     }
 }

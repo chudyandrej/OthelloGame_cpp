@@ -2,44 +2,39 @@
 #define PLAYAREA_H
 
 #include <QDialog>
-#include <QMessageBox>
-#include "othellogui.h"
-class playArea;
-#include "boardfieldwidget.h"
-#include "playareaicon.h"
+#include "OthelloGUI.h"
+class PlayArea;
+#include "BoardFieldWidget.h"
+#include "PlayAreaIcon.h"
 #include "ui_playarea.h"
-#include "../userinterface.h"
+#include "../UserInterface.h"
 #include <sstream>
 
 
 namespace Ui {
-class playArea;
+class PlayArea;
 }
 
-class playArea : public QDialog, UserInterface{
+class PlayArea : public QDialog, UserInterface{
 
     Q_OBJECT
 
 public:
-    explicit playArea(OthelloGUI *parent = 0);
-    ~playArea();
+    explicit PlayArea(OthelloGUI *parent = 0);
+    ~PlayArea();
     Game *getCurrentGame();
     void showGameOverDialog();
-
-private slots:
-    void on_saveLabel_linkHovered();
-    void on_saveLabel_linkActivated();
 
 signals:
     void linkHovered(QString);
 
 private:
-    Ui::playArea *ui;
-    OthelloGUI *parent;
-    Game *newGame;
-    Player *player1;
-    Player *player2;
-    boardFieldWidget *boardFields[12][12];
+    Ui::playArea *ui = nullptr;
+    OthelloGUI *parent = nullptr;
+    Game *newGame = nullptr;
+    Player *player1 = nullptr;
+    Player *player2 = nullptr;
+    BoardFieldWidget *boardFields[12][12];
     int score1;
     int score2;
 

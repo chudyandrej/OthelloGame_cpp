@@ -1,7 +1,9 @@
-#include "playareaicon.h"
+#include "PlayAreaIcon.h"
 
-playAreaIcon::playAreaIcon(int x){
+PlayAreaIcon::PlayAreaIcon(int x, PlayArea *parent, OthelloGUI *grandParent){
     xCoordinate = x;
+    this->parent = parent;
+    this->grandParent = grandParent;
     this->setMouseTracking(true);
     this->setFixedHeight(25);
     this->setFixedWidth(25);
@@ -10,26 +12,39 @@ playAreaIcon::playAreaIcon(int x){
 }
 
 
-void playAreaIcon::mousePressEvent(QMouseEvent *){
+void PlayAreaIcon::mousePressEvent(QMouseEvent *){
     setPressedImage();
     pressed = true;
 }
 
-void playAreaIcon::mouseMoveEvent(QMouseEvent *){
+void PlayAreaIcon::mouseMoveEvent(QMouseEvent *){
     if(!pressed){
         setHoverImage();
     }
 
 }
 
-void playAreaIcon::mouseReleaseEvent(QMouseEvent *){
+void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
     pressed = false;
+    QMessageBox::StandardButton reply;
+
     switch(xCoordinate){
         case 0:
-
+            reply = QMessageBox::question(parent, "Reload Game", "Would you like to reload game and start again?", QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                //start new game
+                //delete game? delete players and board?
+                grandParent->setWidget(4);
+            }
             break;
         case 1:
-
+            reply = QMessageBox::question(parent, "Quit Game", "Would you like to quit game and go to the menu?", QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                 //start new game
+                //delete game? delete players and board?
+                parent->~PlayArea();
+                grandParent->initMenuAgain();
+            }
             break;
         case 2:
 
@@ -40,12 +55,11 @@ void playAreaIcon::mouseReleaseEvent(QMouseEvent *){
     }
 }
 
-void playAreaIcon::leaveEvent(QEvent *){
-    pressed = false;
+void PlayAreaIcon::leaveEvent(QEvent *){
     setImage();
 }
 
-void playAreaIcon::setImage(){
+void PlayAreaIcon::setImage(){
     switch(xCoordinate){
         case 0:
             this->setStyleSheet("background-image: url(:/lib/icons/playAgain.png)");
@@ -62,7 +76,7 @@ void playAreaIcon::setImage(){
     }
 }
 
-void playAreaIcon::setHoverImage(){
+void PlayAreaIcon::setHoverImage(){
     switch(xCoordinate){
         case 0:
             this->setStyleSheet("background-image: url(:/lib/icons/playAgainEntered.png)");
@@ -79,7 +93,7 @@ void playAreaIcon::setHoverImage(){
     }
 }
 
-void playAreaIcon::setPressedImage(){
+void PlayAreaIcon::setPressedImage(){
     switch(xCoordinate){
         case 0:
             this->setStyleSheet("background-image: url(:/lib/icons/playAgainPressed.png)");

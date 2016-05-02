@@ -7,11 +7,11 @@
 #include <qboxlayout.h>
 #include <string>
 class OthelloGUI;
-#include "mainmenu.h"
-#include "gamelevel.h"
-#include "chooseboardsize.h"
-#include "settings.h"
-#include "playarea.h"
+#include "MainMenu.h"
+#include "GameLevel.h"
+#include "ChooseBoardSize.h"
+#include "Settings.h"
+#include "PlayArea.h"
 
 class OthelloGUI : public QApplication{
 
@@ -49,12 +49,12 @@ private:
     int frozeTime;
     int changeTimer;
 
-    QWidget *mainMenuPage;
-    QWidget *gameModePage;
-    QWidget *chooseBoardSizePage;
-    QWidget *settingsPage;
-    QWidget *playAreaPage;
-    QStackedWidget *stackedWidget;
+    QWidget *mainMenuPage = nullptr;
+    QWidget *gameModePage = nullptr;
+    QWidget *chooseBoardSizePage = nullptr;
+    QWidget *settingsPage = nullptr;
+    QWidget *playAreaPage = nullptr;
+    QStackedWidget *stackedWidget = nullptr;
 };
 
 

@@ -1,4 +1,4 @@
-#include "gamelevel.h"
+#include "GameLevel.h"
 
 
 GameLevel::GameLevel(OthelloGUI *parent) : ui(new Ui::GameLevel){
