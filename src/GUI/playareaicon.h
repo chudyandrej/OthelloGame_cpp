@@ -10,12 +10,20 @@ class playAreaIcon : public QLabel{
      //Q_OBJECT
 
 public:
-    playAreaIcon(QDialog *parent = 0);
+    playAreaIcon(int x);
 
 private:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
     void leaveEvent(QEvent *);
+
+    void setImage();
+    void setHoverImage();
+    void setPressedImage();
+
+    int xCoordinate;
+    bool pressed;
 };
 
 #endif // PLAYAREAICON_H

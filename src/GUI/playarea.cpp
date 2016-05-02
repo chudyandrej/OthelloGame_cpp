@@ -12,13 +12,15 @@ playArea::playArea(OthelloGUI *parent) : ui(new Ui::playArea){
 
     initNewGame();
 
-    ui->reloadGameLabel->setStyleSheet("background-image: url(:/lib/icons/playAgain.png)");
-    ui->homeLabel->setStyleSheet("background-image: url(:/lib/icons/home.png)");
-    ui->undoLabel->setStyleSheet("background-image: url(:/lib/icons/undo.png)");
-    ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGame.png)");
+    QGridLayout *grid = new QGridLayout;
+    ui->iconsContainerWidget->setLayout(grid);
 
-    connect(ui->saveLabel, SIGNAL(linkHovered(QString)), this, SLOT(on_saveLabel_linkHovered()));
-    connect(ui->saveLabel, SIGNAL(linkActivated(QString)), this, SLOT(on_saveLabel_linkActivated()));
+
+
+    grid->addWidget(new playAreaIcon(0), 0,0, -1,-1,0);
+    grid->addWidget(new playAreaIcon(1), 0,1, -1,-1,0);
+    grid->addWidget(new playAreaIcon(2), 0,2, -1,-1,0);
+    grid->addWidget(new playAreaIcon(3), 0,3, -1,-1,0);
 
 }
 
@@ -161,9 +163,9 @@ std::string playArea::createMultiPlayerGameOverMsg(){
 
 
 void playArea::on_saveLabel_linkHovered(){
-    ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
+    //ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
 }
 
 void playArea::on_saveLabel_linkActivated(){
-     ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");
+     //ui->saveLabel->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");
 }
