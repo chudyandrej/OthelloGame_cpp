@@ -11,7 +11,6 @@ Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI
     sizeBoard = size;
     gameOver = false;
     currentPlayer = white;
-
 }
 
 

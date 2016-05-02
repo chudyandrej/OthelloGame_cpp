@@ -9,7 +9,7 @@ BoardField::BoardField(int row, int col, int size){
         this->row = row;
         this->col = col;
         this->size = size;
-        this->disk = nullptr;
+        this->disc = nullptr;
         isFreeze = false;
 }
 
@@ -45,20 +45,20 @@ BoardField *BoardField::nextField(int dirs) {
 
 }
 
-bool BoardField::putDisk(Disk *disk) {
+bool BoardField::putDisc(Disc *disc) {
 
     bool ret_val = false;
-    if (this->disk == nullptr){
-        disk->setY(row, col, UserInt);
-        this->disk = disk;
+    if (this->disc == nullptr){
+        disc->setY(row, col, UserInt);
+        this->disc = disc;
         ret_val = true;
     }
     return ret_val;
 
 }
 
-Disk* BoardField::getDisk(){
-    return disk;
+Disc* BoardField::getDisc(){
+    return disc;
 }
 
 bool BoardField::getFreezeEnd() {

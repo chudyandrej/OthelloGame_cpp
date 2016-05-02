@@ -1,7 +1,7 @@
-#include "GUI/othellogui.h"
+#include "GUI/OthelloGUI.h"
 #include "board/Board.h"
 #include "gameObj/Game.h"
-#include "userinterface.h"
+#include "UserInterface.h"
 
 BoardField *board_fields[20][20];
 ReversiRules *rules;

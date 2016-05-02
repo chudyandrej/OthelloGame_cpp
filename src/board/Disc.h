@@ -1,23 +1,23 @@
-#ifndef DISK_H
-#define DISK_H
+#ifndef DISC_H
+#define DISC_H
 
-#include "../userinterface.h"
+#include "../UserInterface.h"
 
-class Disk {
+class Disc {
 private:
     bool isWhite;
     int x, y;
 
 public:
-    Disk(bool isWhite);
+    Disc(bool isWhite);
     void turn(UserInterface *UserInt);
     bool getIsWhite(){ return isWhite; }
     void setY(int x , int y, UserInterface *UserInt);
-    virtual ~Disk() {
+    virtual ~Disc() {
 
     }
 };
 
 
 
-#endif // DISK_H
+#endif // DISC_H

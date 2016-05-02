@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include "../board/Board.h"
-#include "../userinterface.h"
+#include "../UserInterface.h"
 
 
 class Player;
@@ -45,10 +45,10 @@ public:
     ReversiRules(int size);
     int getSize();
 
-    bool canPutDisk(int x, int y, Player *playerTurn);
-    bool putDisk(int x, int y, Player* playerTurn);
+    bool canPutDisc(int x, int y, Player *playerTurn);
+    bool putDisc(int x, int y, Player* playerTurn);
     std::vector<BoardField*> chack_IN_direct(BoardField* field, int way, Player *playerTurn);
-    void turn_disks(std::vector<BoardField*> st);
+    void turn_discs(std::vector<BoardField*> st);
     void uiAlgorithmLevel1(Player* UI);
     void uiAlgorithmLevel2(Player* UI);
     void calcScore(Player* currentPlayer);
@@ -85,12 +85,12 @@ public:
         return isWhite;
     }
 
-    bool canPutDisk(int x, int y){
-        return rules->canPutDisk(x, y, this);
+    bool canPutDisc(int x, int y){
+        return rules->canPutDisc(x, y, this);
     }
 
-    bool putDisk(int x, int y){
-        return rules->putDisk(x, y, this);
+    bool putDisc(int x, int y){
+        return rules->putDisc(x, y, this);
 
     }
 

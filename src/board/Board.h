@@ -5,8 +5,8 @@
 #ifndef OTHELLO_BOARD_H
 #define OTHELLO_BOARD_H
 
-#include "../userinterface.h"
-#include "disk.h"
+#include "../UserInterface.h"
+#include "Disc.h"
 class BoardField;
 
 enum Direct {D,L,LD,LU,R,RD,RU,U};
@@ -33,7 +33,7 @@ public:
 class BoardField{
 private:
     bool freezeEnd;
-    Disk *disk;
+    Disc *disc;
 
 public:
     int row;
@@ -43,8 +43,8 @@ public:
 
     BoardField(int row, int col, int size) ;
     BoardField *nextField(int dirs) ;
-    bool putDisk(Disk *disk);
-    Disk* getDisk();
+    bool putDisc(Disc *disc);
+    Disc* getDisc();
     bool getFreezeEnd();
 
 };
