@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "OthelloGUI.h"
-#include "ui_settings.h"
+#include "ui_Settings.h"
 
 namespace Ui {
 class Settings;
@@ -22,7 +22,7 @@ private slots:
     void on_confirmBtn_clicked();
 
 private:
-    Ui::settings *ui = nullptr;
+    Ui::Settings *ui = nullptr;
     OthelloGUI *parent = nullptr;
 
 };

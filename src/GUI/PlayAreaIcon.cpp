@@ -30,7 +30,7 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
 
     switch(xCoordinate){
         case 0:
-            reply = QMessageBox::question(parent, "Reload Game", "Would you like to reload game and start again?", QMessageBox::Yes|QMessageBox::No);
+            reply = QMessageBox::question(parent, "Reload Game", "<font color='#ffffff'>Would you like to reload game and start again?</font>", QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                 //start new game
                 //delete game? delete players and board?
@@ -38,7 +38,7 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             }
             break;
         case 1:
-            reply = QMessageBox::question(parent, "Quit Game", "Would you like to quit game and go to the menu?", QMessageBox::Yes|QMessageBox::No);
+            reply = QMessageBox::question(parent, "Quit Game", "<font color='#ffffff'>Would you like to quit game and go to the menu?</font>", QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                  //start new game
                 //delete game? delete players and board?

@@ -1,7 +1,7 @@
 #ifndef GAMELEVEL_H
 #define GAMELEVEL_H
 
-#include "ui_gamelevel.h"
+#include "ui_GameLevel.h"
 #include "OthelloGUI.h"
 #include <QDialog>
 

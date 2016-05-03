@@ -1,7 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "ui_mainmenu.h"
+#include "ui_MainMenu.h"
 #include "OthelloGUI.h"
 #include <QDialog>
 
@@ -26,7 +26,7 @@ private slots:
     void on_quitBtn_clicked();
 
 private:
-    Ui::mainMenu *ui = nullptr;
+    Ui::MainMenu *ui = nullptr;
     OthelloGUI *parent = nullptr;
 };
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>boardFieldWidget</class>
- <widget class="QDialog" name="boardFieldWidget">
+ <class>BoardFieldWidget</class>
+ <widget class="QDialog" name="BoardFieldWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,14 +12,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>45</width>
-    <height>45</height>
+    <width>30</width>
+    <height>30</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>45</width>
-    <height>45</height>
+    <width>80</width>
+    <height>80</height>
    </size>
   </property>
   <property name="mouseTracking">

@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <QEvent>
 #include <QDebug>
-#include "ui_boardfieldwidget.h"
+#include "ui_BoardFieldWidget.h"
 #include "../gameObj/Game.h"
 class BoardFieldWidget;
 #include "PlayArea.h"

@@ -1,7 +1,7 @@
 #include "Settings.h"
 
 
-Settings::Settings(OthelloGUI *parent) : ui(new Ui::settings){
+Settings::Settings(OthelloGUI *parent) : ui(new Ui::Settings){
 
     ui->setupUi(this);
     this->parent = parent;

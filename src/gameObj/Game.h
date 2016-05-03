@@ -78,7 +78,7 @@ public:
     }
 
     std::string getName(){
-        return this->name;
+        return name;
     }
 
     bool getIsWhite(){

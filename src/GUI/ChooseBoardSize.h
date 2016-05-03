@@ -1,7 +1,7 @@
 #ifndef CHOOSEBOARDSIZE_H
 #define CHOOSEBOARDSIZE_H
 
-#include "ui_chooseboardsize.h"
+#include "ui_ChooseBoardSize.h"
 #include "OthelloGUI.h"
 #include <QDialog>
 
@@ -27,7 +27,7 @@ private slots:
     void on_size12x12RadioBtn_clicked();
 
 private:
-    Ui::chooseBoardSize *ui;
+    Ui::ChooseBoardSize *ui;
     OthelloGUI *parent = nullptr;
 };
 

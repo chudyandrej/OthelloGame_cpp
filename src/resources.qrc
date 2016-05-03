@@ -5,7 +5,6 @@
         <file>lib/background.jpg</file>
         <file>lib/black2.png</file>
         <file>lib/black2frozen.png</file>
-        <file>lib/blackDisc.png</file>
         <file>lib/button.jpg</file>
         <file>lib/button5.jpg</file>
         <file>lib/field.png</file>
@@ -13,7 +12,6 @@
         <file>lib/fieldFrozen.png</file>
         <file>lib/white2.png</file>
         <file>lib/white2frozen.png</file>
-        <file>lib/whiteDisc.png</file>
         <file>lib/icons/home.png</file>
         <file>lib/icons/homeEntered.png</file>
         <file>lib/icons/homePressed.png</file>
@@ -26,5 +24,7 @@
         <file>lib/icons/undo.png</file>
         <file>lib/icons/undoEntered.png</file>
         <file>lib/icons/undoPressed.png</file>
+        <file>lib/blackDisc.png</file>
+        <file>lib/whiteDisc.png</file>
     </qresource>
 </RCC>

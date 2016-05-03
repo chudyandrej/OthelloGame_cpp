@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-PlayArea::PlayArea(OthelloGUI *parent) : ui(new Ui::playArea){
+PlayArea::PlayArea(OthelloGUI *parent) : ui(new Ui::PlayArea){
 
     ui->setupUi(this);
     this->parent = parent;
@@ -36,7 +36,7 @@ void PlayArea::showGameOverDialog(){
 
     QMessageBox::StandardButton reply;
 
-    reply = QMessageBox::question(this, "Game Over", QString::fromUtf8(msg.c_str()), QMessageBox::Yes|QMessageBox::No);
+    reply = QMessageBox::question(this, "Game Over", "<font color='#ffffff'>"+QString::fromUtf8(msg.c_str())+"</font>", QMessageBox::Yes|QMessageBox::No);
       if (reply == QMessageBox::Yes) {
         //start new game
         //delete game? delete players and board?
@@ -54,12 +54,14 @@ void PlayArea::initNewGame(){
 
     //create board
     QGridLayout *grid = new QGridLayout;
+    grid->setHorizontalSpacing(0);
+    grid->setVerticalSpacing(0);
     ui->board->setLayout(grid);
 
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
             boardFields[i][j] = new BoardFieldWidget(i, j, this);
-            grid->addWidget(boardFields[i][j],i,j,-1,-1,0 );
+            grid->addWidget(boardFields[i][j],i,j,0 );//-1 -1
         }
     }
 
@@ -81,7 +83,12 @@ void PlayArea::initNewGame(){
 
 
     ui->player1NameLabel->setText(QString::fromUtf8(parent->getP1Name().c_str()));
-    ui->player2NameLabel->setText(QString::fromUtf8(parent->getP1Name().c_str()));
+    ui->player1NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
+    ui->player2NameLabel->setText(QString::fromUtf8(parent->getP2Name().c_str()));
+    ui->player2NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
+
+    ui->player1DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/whiteDisc.png)}");
+    ui->player2DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/blackDisc.png)}");
 
 
     //initialize game state
@@ -112,7 +119,9 @@ void PlayArea::setGameState(int score1, int score2, bool isWhite){
         ui->scoreArrayLabel->setStyleSheet("QLabel {background-image: url(:/lib/arrow_l.png)}");
     }
     ui->score1Label->setText(QString::number(score1));
+    ui->score1Label->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
     ui->score2Label->setText(QString::number(score2));
+    ui->score2Label->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
     this->score1 = score1;
     this->score2 = score2;
 }
@@ -121,7 +130,7 @@ void PlayArea::setGameState(int score1, int score2, bool isWhite){
 std::string PlayArea::gameOverDialogMsg(){
     std::string msg;
     if (score1 == score2){      //stalemate
-        msg = "Stalemate! Winners:\n  -"+player1->getName()+"\n  -"+player2->getName()+"\nScore: "+std::to_string(score1);
+        msg = "Stalemate! Winners:<br>  -"+player1->getName()+"<br>  -"+player2->getName()+"<br>Score: "+std::to_string(score1);
     }
     else if(player1->getIs_pc() || player2->getIs_pc()){
         msg = createSinglePlayerGameOverMsg();
@@ -129,7 +138,7 @@ std::string PlayArea::gameOverDialogMsg(){
         msg = createMultiPlayerGameOverMsg();
     }
 
-    msg = msg + "\nWould you like to play again?";
+    msg = msg + "<br>Would you like to play again?";
 
     return msg;
 }
@@ -137,12 +146,12 @@ std::string PlayArea::gameOverDialogMsg(){
 std::string PlayArea::createSinglePlayerGameOverMsg(){
    std::string msg;
    if(player1->getIs_pc()) {
-       msg = (score1 > score2) ? "You LOST. Computer won.\n" : "Congratulation!\nYou WON.\n";
-       msg = msg + "Your score: " + std::to_string(score2) + "\n" +player1->getName()+": "+std::to_string(score1);
+       msg = (score1 > score2) ? "You LOST. Computer won.<br>" : "Congratulation!<br>You WON.<br>";
+       msg = msg + "Your score: " + std::to_string(score2) + "<br>" +player1->getName()+": "+std::to_string(score1);
    }
    else{
-       msg = (score1 < score2) ? "You LOST. Computer won.\n" : "Congratulation!\nYou WON.\n";
-       msg = msg + "Your score: " + std::to_string(score1) + "\n" +player2->getName()+": "+std::to_string(score2);
+       msg = (score1 < score2) ? "You LOST. Computer won.<br>" : "Congratulation!<br>You WON.<br>";
+       msg = msg + "Your score: " + std::to_string(score1) + "<br>" +player2->getName()+": "+std::to_string(score2);
    }
    return msg;
 }

@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 
 
-MainMenu::MainMenu(OthelloGUI *parent) :  ui(new Ui::mainMenu){
+MainMenu::MainMenu(OthelloGUI *parent) :  ui(new Ui::MainMenu){
 
     this->parent = parent;
     ui->setupUi(this);

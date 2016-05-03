@@ -6,7 +6,7 @@
 class PlayArea;
 #include "BoardFieldWidget.h"
 #include "PlayAreaIcon.h"
-#include "ui_playarea.h"
+#include "ui_PlayArea.h"
 #include "../UserInterface.h"
 #include <sstream>
 
@@ -29,7 +29,7 @@ signals:
     void linkHovered(QString);
 
 private:
-    Ui::playArea *ui = nullptr;
+    Ui::PlayArea *ui = nullptr;
     OthelloGUI *parent = nullptr;
     Game *newGame = nullptr;
     Player *player1 = nullptr;

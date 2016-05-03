@@ -1,7 +1,7 @@
 #include "ChooseBoardSize.h"
 
 
-ChooseBoardSize::ChooseBoardSize(OthelloGUI *parent) : ui(new Ui::chooseBoardSize){
+ChooseBoardSize::ChooseBoardSize(OthelloGUI *parent) : ui(new Ui::ChooseBoardSize){
 
     ui->setupUi(this);
     this->parent = parent;
