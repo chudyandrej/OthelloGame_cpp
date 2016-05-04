@@ -25,7 +25,7 @@ bool ReversiRules::canPutDisc(int x, int y, Player *playerTurn) {
 
     if(b_field->getDisc() == nullptr/* && !b_field->isFreeze*/) {
         BoardField *tmp;
-        for ( int way = D; way != U; way++ ){
+        for ( int way = D; way <= U; way++ ){
             tmp = b_field->nextField(way);
             if (tmp != nullptr /*&& !tmp->isFreeze */&& tmp->getDisc() != nullptr && tmp->getDisc()->getIsWhite() != playerTurn->getIsWhite()) {
                 while (tmp != nullptr && tmp->getDisc() != nullptr/* && !tmp->isFreeze*/) {
@@ -45,10 +45,11 @@ bool ReversiRules::putDisc(int x, int y, Player* playerTurn) {
     std::vector<BoardField*> discs_for_turn;
     bool success = false;
     if(b_field->getDisc() == nullptr/* && !b_field->isFreeze*/) {
-        for ( int way = D; way != U; way++ ){
+        for ( int way = D; way <= U; way++ ){
             discs_for_turn = chack_IN_direct(b_field, way,playerTurn );
             if (!discs_for_turn.empty()){
                 if(!success){backupGame->createNewTurn(x, y, playerTurn);}
+                std::cout << discs_for_turn.size()<< "tu \n";
                 backupGame->addTurnedDisc(discs_for_turn);
                 turn_discs(discs_for_turn);
                 success = true;
@@ -112,7 +113,7 @@ void ReversiRules::uiAlgorithmLevel2(Player *UI) {
         for (int j = 0; j < size; j++) {
             if (canPutDisc(i,j,UI)){
                 BoardField* fieldn =  board_fields[i][j];
-                for ( int way = D; way != U; way++ ){
+                for ( int way = D; way <= U; way++ ){
                     discsForTurn =  chack_IN_direct(fieldn, way,UI );
                     if (!discsForTurn.empty() && discsForTurn.size() > maxTurns.size()){
                         maxTurns = discsForTurn;

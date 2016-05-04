@@ -3,58 +3,112 @@
 //
 
 #include "Game.h"
+#include "iostream" //temp
 
+
+void Game::deleteRedoTurns(){
+    while(!tempFutureTurns.empty()){
+        delete tempFutureTurns.back();
+        tempFutureTurns.pop_back();
+    }
+}
 
 Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UInt) {
     UserInt = UInt;
-    rules = new ReversiRules(size);
+    backupGame = new Backup(size);
+    rules = new ReversiRules(size, backupGame);
     sizeBoard = size;
     gameOver = false;
     currentPlayer = white;
+
 }
 
 
 void Game::nextPlayer() {
-    rules->calcScore(currentPlayer);
 
-    this->currentPlayer = currentPlayer->getIsWhite() ? black: white;
-    if (currentPlayer->getIs_pc()) {
-        currentPlayer->uiTurn(this);
-        return;
-    }
-    else if(rules->isExitsingTurn(currentPlayer)) {
-        return;
-    }
-    else if (!rules->isExitsingTurn(white) && !rules->isExitsingTurn(black)){
+    while(true){
+        //backupGame->addFrozenDisc();
+        backupGame->saveBackupRecord();
+
+        deleteRedoTurns();
+
         rules->calcScore(currentPlayer);
-        gameOver = true;
-        return;
-    }
-    currentPlayer = currentPlayer->getIsWhite() ? black: white;
-    if (currentPlayer->getIs_pc()) {
-        currentPlayer->uiTurn(this);
-    }
 
+        //frozenFields(discsToFreeze, CHTime, FTime);
+
+        this->currentPlayer = currentPlayer->getIsWhite() ? black: white;
+        if (currentPlayer->getIs_pc()) {
+            currentPlayer->uiTurn();
+        }
+        else if(rules->isExitsingTurn(currentPlayer)) {
+            return;
+        }
+        else if (!rules->isExitsingTurn(white) && !rules->isExitsingTurn(black)){
+            rules->calcScore(currentPlayer);
+            gameOver = true;
+            return;
+        }
+    }
 }
 
 void Game::undo() {
 
-    /*unFreezAll();
+    //unFreezAll();
     gameOver = false;
-    Backup.TurnBackUp lastTurn;
-    if (backupGame.backupTurns.size() > 0) {
-        lastTurn = backupGame.backupTurns.get(backupGame.backupTurns.size() - 1);
-        lastTurn.base_Point.deleteDisk();
-        rules.turn_disks(lastTurn.turned);
-        loadFrezed(lastTurn.freeze);
-        backupGame.backupTurns.remove(lastTurn);
-        currentPlayer = lastTurn.turn_player;
+    BackupTurn *lastTurn;
 
-        if (currentPlayer.is_pc()){
+    if (backupGame->backupTurns.size() > 0) {
+
+        lastTurn = backupGame->backupTurns.back();
+        tempFutureTurns.push_back(lastTurn);
+        backupGame->backupTurns.pop_back();
+
+        int x = lastTurn->basePoint->x;
+        int y = lastTurn->basePoint->y;
+        board_fields[x][y]->deleteDisc();
+        rules->turn_discs(lastTurn->turnedDiscs);
+
+        //loadFrezed(lastTurn->freeze);
+        currentPlayer = lastTurn->playerOnTurn;
+
+        if (currentPlayer->getIs_pc()){
             undo();
         }
-        rules.calcScore(currentPlayer);
-    }*/
+        Player *tmp = currentPlayer->getIsWhite() ? black: white;
+        rules->calcScore(tmp);
+    }
+}
+
+void Game::redo(){
+
+    //unFreezAll();
+    gameOver = false;
+    BackupTurn *lastTurn;
+
+    if (tempFutureTurns.size() > 0) {
+        std::cout << tempFutureTurns.size();
+        lastTurn = tempFutureTurns.back();
+        tempFutureTurns.pop_back();
+        backupGame->backupTurns.push_back(lastTurn);
+
+
+        int x = lastTurn->basePoint->x;
+        std::cout << "PICA+"<<"\n";
+        int y = lastTurn->basePoint->y;
+        std::cout << "PICA"<<"\n";
+        currentPlayer = lastTurn->playerOnTurn;
+
+        board_fields[x][y]->putDisc(new Disc(currentPlayer->getIsWhite()));
+        rules->turn_discs(lastTurn->turnedDiscs);
+        currentPlayer = currentPlayer->getIsWhite() ? black: white;
+        //loadFrezed(lastTurn->freeze);
+
+        if (currentPlayer->getIs_pc()){
+            redo();
+        }
+        Player *tmp = currentPlayer->getIsWhite() ? black: white;
+        rules->calcScore(tmp);
+    }
 
 }
 

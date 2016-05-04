@@ -10,10 +10,11 @@
 #include "../board/Board.h"
 #include "../UserInterface.h"
 
-
 class Player;
 class ReversiRules;
 extern ReversiRules *rules;
+
+#include "Backup.h"
 
 
 class Game {
@@ -24,7 +25,11 @@ private:
     Player *black = nullptr;
     Player *white = nullptr;
     bool gameOver;
+    Backup *backupGame;
 
+    std::vector<BackupTurn*> tempFutureTurns;
+
+    void deleteRedoTurns();
 
 public:
     Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI);
@@ -33,6 +38,7 @@ public:
     bool getIsGameOver();
     void nextPlayer();
     void undo();
+    void redo();
 };
 
 
@@ -40,13 +46,15 @@ class ReversiRules {
 private:
     int size;
     Board *playBoard;
+    Backup *backupGame;
 
 public:
-    ReversiRules(int size);
+    ReversiRules(int size, Backup *backupGame);
     int getSize();
 
     bool canPutDisc(int x, int y, Player *playerTurn);
     bool putDisc(int x, int y, Player* playerTurn);
+    void reversePutDisc(int x, int y, Player* playerTurn);
     std::vector<BoardField*> chack_IN_direct(BoardField* field, int way, Player *playerTurn);
     void turn_discs(std::vector<BoardField*> st);
     void uiAlgorithmLevel1(Player* UI);
@@ -94,14 +102,13 @@ public:
 
     }
 
-    void uiTurn(Game *game) {
+    void uiTurn() {
         if (level == 1) {
             rules->uiAlgorithmLevel1(this);
         }
         else {
             rules->uiAlgorithmLevel2(this);
         }
-        game->nextPlayer();
     }
 
     bool getIs_pc() {

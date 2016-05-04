@@ -15,7 +15,11 @@ void Backup::createNewTurn(int x, int y, Player *pOnTurn){
 }
 
 void Backup::addTurnedDisc(std::vector <BoardField*> turnedDiscs){
-    newTurn->turnedDiscs = turnedDiscs;
+
+
+    newTurn->turnedDiscs.insert(newTurn->turnedDiscs.end(), turnedDiscs.begin(), turnedDiscs.end());
+
+
 }
 
 void Backup::addFrozenDisc(std::vector<BoardField*> points){
