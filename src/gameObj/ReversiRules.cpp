@@ -3,12 +3,14 @@
 //
 
 #include "Game.h"
+#include <iostream> //temp
 
 
 
-ReversiRules::ReversiRules(int size){
+ReversiRules::ReversiRules(int size, Backup *backupGame){
     this->size = size;
     playBoard =  new Board(size);
+    this->backupGame = backupGame;
 
 
     //starting position
@@ -20,12 +22,13 @@ ReversiRules::ReversiRules(int size){
 
 bool ReversiRules::canPutDisc(int x, int y, Player *playerTurn) {
     BoardField* b_field =  board_fields[x][y];
-    if(b_field->getDisc() == nullptr && !b_field->isFreeze) {
+
+    if(b_field->getDisc() == nullptr/* && !b_field->isFreeze*/) {
         BoardField *tmp;
         for ( int way = D; way != U; way++ ){
             tmp = b_field->nextField(way);
-            if (tmp != nullptr && !tmp->isFreeze && tmp->getDisc() != nullptr && tmp->getDisc()->getIsWhite() != playerTurn->getIsWhite()) {
-                while (tmp != nullptr && tmp->getDisc() != nullptr && !tmp->isFreeze) {
+            if (tmp != nullptr /*&& !tmp->isFreeze */&& tmp->getDisc() != nullptr && tmp->getDisc()->getIsWhite() != playerTurn->getIsWhite()) {
+                while (tmp != nullptr && tmp->getDisc() != nullptr/* && !tmp->isFreeze*/) {
                     if (tmp->getDisc()->getIsWhite() == playerTurn->getIsWhite() ) {
                         return true;
                     }
@@ -41,30 +44,31 @@ bool ReversiRules::putDisc(int x, int y, Player* playerTurn) {
     BoardField  *b_field =  board_fields[x][y];
     std::vector<BoardField*> discs_for_turn;
     bool success = false;
-    if(b_field->getDisc() == nullptr && !b_field->isFreeze) {
+    if(b_field->getDisc() == nullptr/* && !b_field->isFreeze*/) {
         for ( int way = D; way != U; way++ ){
             discs_for_turn = chack_IN_direct(b_field, way,playerTurn );
             if (!discs_for_turn.empty()){
-                //if(!success){backupGame.create_NewTurn(board_fields,playerTurn);}
-                //backupGame.add_TurnedDiscs(discs_for_turn);
+                if(!success){backupGame->createNewTurn(x, y, playerTurn);}
+                backupGame->addTurnedDisc(discs_for_turn);
                 turn_discs(discs_for_turn);
                 success = true;
             }
         }
         if (success){
             b_field->putDisc(new Disc(playerTurn->getIsWhite()));
-
         }
     }
     return success;
 }
 
+
 std::vector<BoardField*> ReversiRules::chack_IN_direct(BoardField *field, int way, Player *playerTurn) {
     field = field->nextField(way);
     std::vector <BoardField*> candidate_turn;
-    if (field != nullptr && !field->isFreeze && field->getDisc() != nullptr  && field->getDisc()->getIsWhite() != playerTurn->getIsWhite()) {
 
-        while (field != nullptr && field->getDisc() != nullptr && !field->isFreeze) {
+    if (field != nullptr /*&& !field->isFreeze */&& field->getDisc() != nullptr  && field->getDisc()->getIsWhite() != playerTurn->getIsWhite()) {
+
+        while (field != nullptr && field->getDisc() != nullptr/* && !field->isFreeze*/) {
             if (field->getDisc()->getIsWhite() == playerTurn->getIsWhite()) {
                 return candidate_turn ;
             }
@@ -72,7 +76,8 @@ std::vector<BoardField*> ReversiRules::chack_IN_direct(BoardField *field, int wa
             field = field->nextField(way);
         }
     }
-    return candidate_turn ;
+    candidate_turn.clear();
+    return candidate_turn;
 
 }
 

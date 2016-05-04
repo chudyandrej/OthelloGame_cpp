@@ -33,7 +33,7 @@ public:
 class BoardField{
 private:
     bool freezeEnd;
-    Disc *disc;
+    Disc *disc = nullptr;
 
 public:
     int row;
@@ -46,7 +46,7 @@ public:
     bool putDisc(Disc *disc);
     Disc* getDisc();
     bool getFreezeEnd();
-
+    void deleteDisc();
 };
 
 

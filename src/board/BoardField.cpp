@@ -65,3 +65,11 @@ bool BoardField::getFreezeEnd() {
     return freezeEnd;
 }
 
+void BoardField::deleteDisc(){
+    this->disc->~Disc();
+    this->disc = nullptr;
+    UserInt->deleteDisc(row, col);
+}
+
+
+
