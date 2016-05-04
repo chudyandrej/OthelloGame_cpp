@@ -19,6 +19,7 @@ PlayArea::PlayArea(OthelloGUI *parent) : ui(new Ui::PlayArea){
     grid->addWidget(new PlayAreaIcon(1, this, parent), 0,1, -1,-1,0);
     grid->addWidget(new PlayAreaIcon(2, this, parent), 0,2, -1,-1,0);
     grid->addWidget(new PlayAreaIcon(3, this, parent), 0,3, -1,-1,0);
+    grid->addWidget(new PlayAreaIcon(4, this, parent), 0,4, -1,-1,0);
 
 }
 

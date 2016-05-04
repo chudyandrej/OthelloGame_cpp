@@ -1,6 +1,5 @@
 #include "BoardFieldWidget.h"
 
-
 BoardFieldWidget::BoardFieldWidget(int x, int y, PlayArea *parent) : ui(new Ui::BoardFieldWidget) {
 
     ui->setupUi(this);

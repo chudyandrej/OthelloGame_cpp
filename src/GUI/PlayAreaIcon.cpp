@@ -46,11 +46,13 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
                 grandParent->initMenuAgain();
             }
             break;
-        case 2:
-
+        case 2: // undo
+            parent->getCurrentGame()->undo();
             break;
-        case 3:
-
+        case 3: //redo
+            parent->getCurrentGame()->redo();
+            break;
+        case 4: //save
             break;
     }
 }
@@ -71,6 +73,8 @@ void PlayAreaIcon::setImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undo.png)");
             break;
         case 3:
+            break;
+        case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGame.png)");
             break;
     }
@@ -88,6 +92,8 @@ void PlayAreaIcon::setHoverImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undoEntered.png)");
             break;
         case 3:
+            break;
+        case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
             break;
     }
@@ -105,6 +111,8 @@ void PlayAreaIcon::setPressedImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undoPressed.png)");
             break;
         case 3:
+            break;
+        case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");
             break;
     }
