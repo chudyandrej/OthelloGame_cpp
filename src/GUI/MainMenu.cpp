@@ -26,7 +26,26 @@ void MainMenu::on_multiPlayerBtn_clicked(){
 }
 
 void MainMenu::on_loadGameBtn_clicked(){
-    //code will go here
+    //create new game
+
+    std::string p1Name, p2Name;
+    bool p1, p2;
+    int level1, level2, size;
+
+    //init loading of game
+    std::tie(size, p1Name, p1, level1, p2Name, p2, level2) = Backup::loadSettings();
+
+    if(p2){
+        parent->setGameMode(level2);
+        parent->setNames(p1Name, "Player2", p2Name);
+    }
+    else{
+        parent->setNames(p1Name, p2Name, "Computer");
+    }
+    parent->setBoardSize(size);
+
+    parent->setWidget(5);
+
 }
 
 void MainMenu::on_settingsBtn_clicked(){

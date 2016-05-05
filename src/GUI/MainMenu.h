@@ -3,6 +3,7 @@
 
 #include "ui_MainMenu.h"
 #include "OthelloGUI.h"
+#include "../gameObj/Backup.h"
 #include <QDialog>
 
 namespace Ui {

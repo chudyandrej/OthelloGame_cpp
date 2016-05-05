@@ -2,11 +2,13 @@
 #define BACKUP_H
 
 
-
 class Backup;
 class BackupTurn;
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <tuple>
+#include <set>
 #include "Game.h"
 
 
@@ -53,6 +55,10 @@ public:
     void saveBackupRecord();
 
     void serializeBackup();
+
+    static std::tuple<int, std::string, bool, int, std::string, bool, int> loadSettings();
+    static std::vector<std::string> split(std::string input, char delimiter);
+    void loadGame();
 };
 
 

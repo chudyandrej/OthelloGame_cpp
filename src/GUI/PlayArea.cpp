@@ -2,25 +2,19 @@
 #include <stdio.h>
 
 
-PlayArea::PlayArea(OthelloGUI *parent) : ui(new Ui::PlayArea){
+PlayArea::PlayArea(OthelloGUI *parent, bool loadingGame) : ui(new Ui::PlayArea){
 
     ui->setupUi(this);
     this->parent = parent;
 
     this->setStyleSheet("QWidget {background-image: url( :/lib/background.jpg) }");
 
+    initBoard();
     initNewGame();
 
-    //set icons above board
-    QGridLayout *grid = new QGridLayout;
-    ui->iconsContainerWidget->setLayout(grid);
-
-    grid->addWidget(new PlayAreaIcon(0, this, parent), 0,0, -1,-1,0);
-    grid->addWidget(new PlayAreaIcon(1, this, parent), 0,1, -1,-1,0);
-    grid->addWidget(new PlayAreaIcon(2, this, parent), 0,2, -1,-1,0);
-    grid->addWidget(new PlayAreaIcon(3, this, parent), 0,3, -1,-1,0);
-    grid->addWidget(new PlayAreaIcon(4, this, parent), 0,4, -1,-1,0);
-
+    if(loadingGame){
+        newGame->backupGame->loadGame();
+    }
 }
 
 
@@ -50,7 +44,7 @@ void PlayArea::showGameOverDialog(){
       }
 }
 
-void PlayArea::initNewGame(){
+void PlayArea::initBoard(){
     int size = parent->getBoardSize();
 
     //create board
@@ -66,9 +60,36 @@ void PlayArea::initNewGame(){
         }
     }
 
+    //set labels on game status bar
+    ui->player1NameLabel->setText(QString::fromUtf8(parent->getP1Name().c_str()));
+    ui->player1NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
+    ui->player2NameLabel->setText(QString::fromUtf8(parent->getP2Name().c_str()));
+    ui->player2NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
+
+    ui->player1DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/whiteDisc.png)}");
+    ui->player2DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/blackDisc.png)}");
+
+
+    //initialize game state
+    setGameState(2, 2, false);
+
+
+    //set icons above board
+    QGridLayout *iconsGrid = new QGridLayout;
+    ui->iconsContainerWidget->setLayout(iconsGrid);
+
+    iconsGrid->addWidget(new PlayAreaIcon(0, this, parent), 0,0, -1,-1,0);
+    iconsGrid->addWidget(new PlayAreaIcon(1, this, parent), 0,1, -1,-1,0);
+    iconsGrid->addWidget(new PlayAreaIcon(2, this, parent), 0,2, -1,-1,0);
+    iconsGrid->addWidget(new PlayAreaIcon(3, this, parent), 0,3, -1,-1,0);
+    iconsGrid->addWidget(new PlayAreaIcon(4, this, parent), 0,4, -1,-1,0);
+
+}
+
+void PlayArea::initNewGame(){
 
     //init game
-    newGame = new Game(size, parent->getDiscsToFreeze(), parent->getChangeTimer(), parent->getFrozeTime(), this);
+    newGame = new Game(parent->getBoardSize(), parent->getDiscsToFreeze(), parent->getChangeTimer(), parent->getFrozeTime(), this);
 
     player1 = new Player(true, parent->getP1Name());
     newGame->addPlayer(player1);
@@ -81,19 +102,6 @@ void PlayArea::initNewGame(){
     }
 
     newGame->addPlayer(player2);
-
-
-    ui->player1NameLabel->setText(QString::fromUtf8(parent->getP1Name().c_str()));
-    ui->player1NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
-    ui->player2NameLabel->setText(QString::fromUtf8(parent->getP2Name().c_str()));
-    ui->player2NameLabel->setStyleSheet("QLabel { color : white; font-size: 15pt;}");
-
-    ui->player1DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/whiteDisc.png)}");
-    ui->player2DiscLabel->setStyleSheet("QLabel {background-image: url(:/lib/blackDisc.png)}");
-
-
-    //initialize game state
-    setGameState(2, 2, false);
 }
 
 void PlayArea::changeDisc(int x, int y, bool isWhite){
@@ -166,3 +174,5 @@ std::string PlayArea::createMultiPlayerGameOverMsg(){
     }
     return msg;
 }
+
+

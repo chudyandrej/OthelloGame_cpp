@@ -144,7 +144,7 @@ void Game::redo(){
     BackupTurn *lastTurn;
 
     if (tempFutureTurns.size() > 0) {
-        std::cout << tempFutureTurns.size();
+
         lastTurn = tempFutureTurns.back();
         tempFutureTurns.pop_back();
         backupGame->backupTurns.push_back(lastTurn);

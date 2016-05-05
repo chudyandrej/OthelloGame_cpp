@@ -49,7 +49,6 @@ bool ReversiRules::putDisc(int x, int y, Player* playerTurn) {
             discs_for_turn = chack_IN_direct(b_field, way,playerTurn );
             if (!discs_for_turn.empty()){
                 if(!success){backupGame->createNewTurn(x, y, playerTurn);}
-                std::cout << discs_for_turn.size()<< "tu \n";
                 backupGame->addTurnedDisc(discs_for_turn);
                 turn_discs(discs_for_turn);
                 success = true;

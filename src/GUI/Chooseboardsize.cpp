@@ -17,7 +17,6 @@ ChooseBoardSize::~ChooseBoardSize(){
 
 void ChooseBoardSize::on_playBtn_clicked(){
     //init board
-
    parent->setWidget(4);
 }
 

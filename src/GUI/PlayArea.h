@@ -20,7 +20,7 @@ class PlayArea : public QDialog, UserInterface{
     Q_OBJECT
 
 public:
-    explicit PlayArea(OthelloGUI *parent = 0);
+    explicit PlayArea(OthelloGUI *parent = 0, bool loadingGame = false);
     ~PlayArea();
     Game *getCurrentGame();
     void showGameOverDialog();
@@ -41,6 +41,7 @@ private:
     std::string gameOverDialogMsg();
     std::string createSinglePlayerGameOverMsg();
     std::string createMultiPlayerGameOverMsg();
+    void initBoard();
     void initNewGame();
 
     void changeDisc(int x, int y, bool isWhite);
