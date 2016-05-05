@@ -13,28 +13,86 @@ void Game::deleteRedoTurns(){
     }
 }
 
+void Game::frozenFields(int counter, int maxFreezeTime, int maxChangeTime){
+    unFreezeWhichCan();
+
+    if(maxChangeTime == 0){return;}
+
+    if(threadMtx.try_lock()){
+
+       for (int x = 0; x < counter; x++) {
+             int randomX = (int) (rand() % (sizeBoard - 1));
+             int randomY = (int) (rand() % (sizeBoard - 1));
+             std::cout << randomX << " " << randomY << "\n";
+             board_fields[randomX][randomY]->freezeDisc(maxFreezeTime);
+             frozen.push_back(board_fields[randomX][randomY]);
+         }
+         std::cout << "here??? " << maxChangeTime << "\n";
+         std::thread(&Game::sleepThread,this, maxChangeTime).detach();
+
+    }
+}
+
+void Game::sleepThread(int time){
+    usleep(1000* (rand() % time));
+    threadMtx.unlock();
+}
+
+
+void Game::unFreezeAll(){
+    while(!frozen.empty()){
+        BoardField *tmp =  frozen.back();
+        tmp->isFreeze = false;
+        UserInt->unFreezeField(tmp->row, tmp->col);
+        frozen.remove(tmp);
+    }
+}
+
+
+void Game::unFreezeWhichCan(){
+
+    std::list<BoardField*>::iterator i = frozen.begin();
+    while (i != frozen.end()){
+        if ((*i)->freezeEnd) {
+            (*i)->freezeEnd = false;
+            frozen.erase(i++);  // alternatively, i = items.erase(i);
+            UserInt->unFreezeField((*i)->row, (*i)->col);
+        }
+        else{
+            ++i;
+        }
+    }
+}
+
+
+
 Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UInt) {
     UserInt = UInt;
-    backupGame = new Backup(size);
+    backupGame = new Backup(size, this);
     rules = new ReversiRules(size, backupGame);
     sizeBoard = size;
     gameOver = false;
     currentPlayer = white;
-
+    this->discsToFreeze = discsToFreeze;
+    this->CHTime = CHTime;
+    this->FTime = FTime;
+    //this->discsToFreeze = 6;
+    //this->CHTime = 5;
+    //this->FTime = 1;
 }
 
 
 void Game::nextPlayer() {
 
     while(true){
-        //backupGame->addFrozenDisc();
+        backupGame->addFrozenDisc(frozen);
         backupGame->saveBackupRecord();
 
         deleteRedoTurns();
 
         rules->calcScore(currentPlayer);
 
-        //frozenFields(discsToFreeze, CHTime, FTime);
+        frozenFields(discsToFreeze, FTime, CHTime);
 
         this->currentPlayer = currentPlayer->getIsWhite() ? black: white;
         if (currentPlayer->getIs_pc()) {
@@ -93,9 +151,7 @@ void Game::redo(){
 
 
         int x = lastTurn->basePoint->x;
-        std::cout << "PICA+"<<"\n";
         int y = lastTurn->basePoint->y;
-        std::cout << "PICA"<<"\n";
         currentPlayer = lastTurn->playerOnTurn;
 
         board_fields[x][y]->putDisc(new Disc(currentPlayer->getIsWhite()));

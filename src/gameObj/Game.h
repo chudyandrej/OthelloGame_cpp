@@ -6,30 +6,46 @@
 #define OTHELLO_GAME_H
 
 #include <vector>
+#include <list>
 #include <string>
 #include "../board/Board.h"
 #include "../UserInterface.h"
 
 class Player;
+class Game;
 class ReversiRules;
 extern ReversiRules *rules;
 
 #include "Backup.h"
-
+#include <mutex>
 
 class Game {
+public:
+    Backup *backupGame;
+    Player *black = nullptr;
+    Player *white = nullptr;
+
 
 private:
     int sizeBoard;
     Player *currentPlayer;
-    Player *black = nullptr;
-    Player *white = nullptr;
-    bool gameOver;
-    Backup *backupGame;
 
+    bool gameOver;
+
+    int discsToFreeze;
+    int CHTime;
+    int FTime;
+
+    std::mutex threadMtx;
     std::vector<BackupTurn*> tempFutureTurns;
 
     void deleteRedoTurns();
+    void frozenFields(int counter, int maxFreezeTime, int maxChangeTisleeme);
+    void sleepThread(int time);
+    void unFreezeWhichCan();
+    void unFreezeAll();
+    std::list<BoardField*> frozen;
+
 
 public:
     Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI);
@@ -39,6 +55,7 @@ public:
     void nextPlayer();
     void undo();
     void redo();
+
 };
 
 
@@ -66,9 +83,11 @@ public:
 
 
 class Player {
-private:
-    bool isWhite;
+public:
     int level;
+
+private:
+    bool isWhite;    
     bool is_pc = false;
     std::string name;
 
@@ -86,7 +105,7 @@ public:
     }
 
     std::string getName(){
-        return name;
+        return this->name;
     }
 
     bool getIsWhite(){

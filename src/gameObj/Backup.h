@@ -1,9 +1,12 @@
 #ifndef BACKUP_H
 #define BACKUP_H
-#include <vector>
+
+
 
 class Backup;
 class BackupTurn;
+#include <fstream>
+#include <iostream>
 #include "Game.h"
 
 
@@ -27,7 +30,7 @@ public:
     BackupTurn(Point *basePoint, Player *pOnTurn);
 
     Point *basePoint;
-    std::vector<BoardField*> frozenPoints;
+    std::list<BoardField*> frozenPoints;
     std::vector <BoardField*> turnedDiscs;
     Player *playerOnTurn;
 };
@@ -39,16 +42,17 @@ private:
     int boardSize;
 
 public:
-    Backup(int boardSize);
+    Backup(int boardSize, Game *game);
     std::vector<BackupTurn*> backupTurns;
     BackupTurn *newTurn;
-    Player *player1;
-    Player *player2;
+    Game *game;
 
     void createNewTurn(int x, int y, Player *pOnTurn);
-    void addFrozenDisc(std::vector<BoardField*> points);
+    void addFrozenDisc(std::list<BoardField*> points);
     void addTurnedDisc(std::vector <BoardField*> turnedDiscs);
     void saveBackupRecord();
+
+    void serializeBackup();
 };
 
 

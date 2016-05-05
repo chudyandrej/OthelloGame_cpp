@@ -53,6 +53,7 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             parent->getCurrentGame()->redo();
             break;
         case 4: //save
+            parent->getCurrentGame()->backupGame->serializeBackup();
             break;
     }
 }

@@ -36,6 +36,8 @@ void BoardFieldWidget::deleteDisc(){
 void BoardFieldWidget::freeze(){
     if(frozen){ return; }
     frozen = true;
+    this->setStyleSheet("QWidget {background-color: black; border:2px solid black;}");
+
     //... code will continue
 }
 

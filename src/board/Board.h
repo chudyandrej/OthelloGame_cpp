@@ -7,6 +7,11 @@
 
 #include "../UserInterface.h"
 #include "Disc.h"
+#include <mutex>
+#include <thread>       //-std=c++0x -pthread
+#include <unistd.h>
+
+
 class BoardField;
 
 enum Direct {D,L,LD,LU,R,RD,RU,U};
@@ -16,8 +21,6 @@ extern UserInterface *UserInt;
 
 
 class Board {
-/*protected:
-    UserInterface *UserInt;*/
 
 public:
     int size;
@@ -31,8 +34,7 @@ public:
 
 
 class BoardField{
-private:
-    bool freezeEnd;
+private:   
     Disc *disc = nullptr;
 
 public:
@@ -40,6 +42,7 @@ public:
     int col;
     int size;
     bool isFreeze;
+    bool freezeEnd;
 
     BoardField(int row, int col, int size) ;
     BoardField *nextField(int dirs) ;
@@ -47,6 +50,12 @@ public:
     Disc* getDisc();
     bool getFreezeEnd();
     void deleteDisc();
+    void freezeDisc(int time);
+
+    void sleepFunction(int time);
+    void setSynchValue();
+    bool getSynchValue();
+    std::mutex synchValMtx;
 };
 
 

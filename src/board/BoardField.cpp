@@ -3,7 +3,7 @@
 //
 
 #include "Board.h"
-
+#include <iostream>
 
 BoardField::BoardField(int row, int col, int size){
         this->row = row;
@@ -69,6 +69,35 @@ void BoardField::deleteDisc(){
     this->disc->~Disc();
     this->disc = nullptr;
     UserInt->deleteDisc(row, col);
+}
+
+void BoardField::freezeDisc(int time){
+    freezeEnd = false;
+    isFreeze = true;
+
+    UserInt->freezeField(row, col);
+    //freezeEnd =
+    std::thread(&BoardField::sleepFunction,this, time).detach();
+    std::cout << &freezeEnd << "\n";
+
+}
+
+void BoardField::sleepFunction(int time){
+    usleep(1000* (rand() % time) );
+    setSynchValue();
+}
+
+void BoardField::setSynchValue(){
+    synchValMtx.lock();
+    std::cout << &freezeEnd << "fuck\n";
+    freezeEnd = true;
+    synchValMtx.unlock();
+}
+
+bool BoardField::getSynchValue(){
+    synchValMtx.lock();
+    return freezeEnd;
+    synchValMtx.unlock();
 }
 
 
