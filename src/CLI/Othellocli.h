@@ -1,3 +1,16 @@
+/**
+ * Header file for Othellocli class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
+
 #ifndef OTHELLOCLI_H
 #define OTHELLOCLI_H
 
@@ -35,8 +48,8 @@ private:
     void initNewGame();
     void commandListener();
     void printBoard();
-    void printGameOverMessage();
-    bool otherOption(char x);
+    int printGameOverMessage();
+    int otherOption(char x);
 
     void changeDisc(int x, int y, bool isWhite);
     void deleteDisc(int x, int y);

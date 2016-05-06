@@ -1,6 +1,8 @@
 #include "Othellocli.h"
 
-
+/**
+ * OthelloCLI constructor
+ */
 OthelloCLI::OthelloCLI(){
     //default
     player1Name = "Player1";
@@ -10,14 +12,17 @@ OthelloCLI::OthelloCLI(){
     int load = getSettings();
     initNewGame();
 
-    if(load == 1){
+    if(load == 1){      //load game = load all turns from backup
         newGame->backupGame->loadGame();
     }
 
     commandListener();
 }
 
-
+/**
+ * Method gathers and sets settings of game based on user's input
+ * @return 1 when player choosed load game option, 0 otherwise
+ */
 int OthelloCLI::getSettings(){
     std::cout << "1 = Single Player\n2 = Multiplayer\n3 = Load Game\n";
 
@@ -70,6 +75,9 @@ int OthelloCLI::getSettings(){
     return 0;
 }
 
+/**
+ * Method initializes new game
+ */
 void OthelloCLI::initNewGame(){
 
     //create board
@@ -99,6 +107,9 @@ void OthelloCLI::initNewGame(){
     setGameState(2, 2, false);
 }
 
+/**
+ * Method listens and executes user's commands for game controll.
+ */
 void OthelloCLI::commandListener(){
     int x;
     char y;
@@ -113,7 +124,9 @@ void OthelloCLI::commandListener(){
                 std::cout << "Write a letter of column. [x = exit game; s = save game]\n";
                 std::cin >> y;
 
-                if(otherOption(y)){ continue; }
+                int ret = otherOption(y);
+                if(ret == 1){ continue; }
+                if(ret == 2){ return; }
 
                 y = y-65; //convert char to number
                 if(y < 0 || y > boardSize){
@@ -127,7 +140,9 @@ void OthelloCLI::commandListener(){
                 std::cout << "Write number of row. [x = exit game; s = save game]\n";
                 std::cin >> x;
 
-                 if(otherOption((char)y)){ continue; }
+                int ret = otherOption(y);
+                if(ret == 1){ continue; }
+                if(ret == 2){ return; }
 
                 if(x < 0 || x > boardSize){
                     std::cout << "Wrong row\n";
@@ -144,6 +159,10 @@ void OthelloCLI::commandListener(){
 
                 if(newGame->getIsGameOver()){
                     //showGameOverDialog();
+                    if(printGameOverMessage() == 1){
+                        initNewGame();
+                    }
+                    return;
                 }
                 break;
             }
@@ -155,6 +174,9 @@ void OthelloCLI::commandListener(){
     }
 }
 
+/**
+ * Method prints board and game information to the standard output.
+ */
 void OthelloCLI::printBoard(){
     std::cout << "\n";
 
@@ -180,7 +202,11 @@ void OthelloCLI::printBoard(){
     std::cout << "\n";
 }
 
-void OthelloCLI::printGameOverMessage(){
+/**
+ * Method prints game summary when game is over
+ * @return 1 when user wants to reload game, 0 otherwise
+ */
+int OthelloCLI::printGameOverMessage(){
     std::string msg;
     if (score1 == score2){      //stalemate
         msg = "Stalemate! Winners:\n  -"+player1->getName()+"\n  -"+player2->getName()+"\nScore: "+std::to_string(score1);
@@ -196,15 +222,21 @@ void OthelloCLI::printGameOverMessage(){
     char choice;
     std::cin >> choice;
     if(choice == 'y'){
-        initNewGame();
+        return 1;
     }
-    exit(0);
+    return 0;
 }
 
-bool OthelloCLI::otherOption(char x){
+/**
+ * Method checks if user wants to save or quit game.
+ * @param  x user's input
+ * @return   1 when game was saved, 2 when users wants to quit the game,
+ *           0 otherwise
+ */
+int OthelloCLI::otherOption(char x){
 
     if(x == 'e'){
-        exit(0);
+        return 2;
     }
     else if(x == 's'){
         //save game
@@ -213,29 +245,51 @@ bool OthelloCLI::otherOption(char x){
         }else{
              std::cout << "Game was successfuly saved\n";
         }
-        return true;
+        return 1;
     }
-    return false;
+    return 0;
 }
 
-
-
+/**
+ * Method for changing disc's color
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void OthelloCLI::changeDisc(int x, int y, bool isWhite){
     boardFields[x][y] = (isWhite) ? 'o' : 'x';
 }
 
+/**
+ * Method for changing disc's color
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void OthelloCLI::deleteDisc(int x, int y){
     boardFields[x][y] = '-';
 }
 
+/**
+ * Not supported for CLI mode.
+ */
 void OthelloCLI::freezeField(int x, int y){
     //friezing fields is for CLI not supported
 }
 
+/**
+ * Not supported for CLI mode.
+ */
 void OthelloCLI::unFreezeField(int x, int y){
     //friezing fields is for CLI not supported
 }
 
+/**
+ * Method sets game state information
+ * @param score1  player1's score
+ * @param score2  player2's score
+ * @param isWhite color of player on turn
+ */
 void OthelloCLI::setGameState(int score1, int score2, bool isWhite){
     this->score1 = score1;
     this->score2 = score2;

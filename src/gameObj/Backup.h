@@ -1,9 +1,23 @@
+/**
+ * Header file for Point, BackupTurn and Backup class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #ifndef BACKUP_H
 #define BACKUP_H
 
-
+//forward declarationss
 class Backup;
 class BackupTurn;
+
+//includes
 #include <fstream>
 #include <iostream>
 #include <sstream>

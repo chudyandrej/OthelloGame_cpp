@@ -1,5 +1,5 @@
 /**
- * Header file for CreateGameOverMsg.
+ * Header file for CreateGameOverMsg class.
  *
  * @project HRA2016
  * @author Andrej Chudý

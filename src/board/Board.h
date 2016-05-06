@@ -1,20 +1,29 @@
-//
-// Created by Andrej Oliver Chudý on 24/04/16.
-//
+/**
+ * Header file for Board class and BoardField class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
 
 #ifndef OTHELLO_BOARD_H
 #define OTHELLO_BOARD_H
 
-#include "../UserInterface.h"
-#include "Disc.h"
 #include <mutex>
 #include <thread>       //-std=c++0x -pthread
 #include <unistd.h>
 
+#include "../UserInterface.h"
+#include "Disc.h"
 
+//forward declarations
 class BoardField;
-
 enum Direct {D,L,LD,LU,R,RD,RU,U};
+
 
 extern BoardField* board_fields[20][20];
 extern UserInterface *UserInt;
@@ -56,8 +65,6 @@ public:
     std::mutex freezeEndMtx;
     bool checkUnfreeze();
 };
-
-
 
 
 

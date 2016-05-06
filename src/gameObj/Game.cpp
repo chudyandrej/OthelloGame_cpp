@@ -1,11 +1,42 @@
-//
-// Created by Andrej Oliver Chudý on 24/04/16.
-//
+/**
+ * File contains implemented methods of Game class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
 
 #include "Game.h"
 #include "iostream" //temp
 
 
+/**
+ * Constructor, initializes the game.
+ * @param size board size
+ * @param discsToFreeze number of disc, which can be made frozen
+ * @param CHTime time after which can be discs made unfrozen
+ * @param FTime time for which are the discs hold frozen
+ * @param user interface (GUI or CLI) to be used
+ */
+Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UInt) {
+    UserInt = UInt;
+    backupGame = new Backup(size, this);
+    rules = new ReversiRules(size, backupGame);
+    sizeBoard = size;
+    gameOver = false;
+    currentPlayer = white;
+    this->discsToFreeze = discsToFreeze;
+    this->CHTime = CHTime;
+    this->FTime = FTime;
+}
+
+/**
+ * Method deletes redo turns.
+ */
 void Game::deleteRedoTurns(){
     while(!tempFutureTurns.empty()){
         delete tempFutureTurns.back();
@@ -13,6 +44,12 @@ void Game::deleteRedoTurns(){
     }
 }
 
+/**
+ * Function for generating frozen fields.
+ * @param count How much fields will be frozen
+ * @param max_timeFreeze Max time (seconds) for which will be the fields frozen
+ * @param max_timeChange Max time (seconds) to change
+ */
 void Game::frozenFields(int counter, int maxFreezeTime, int maxChangeTime){
     unFreezeWhichCan();
 
@@ -28,16 +65,22 @@ void Game::frozenFields(int counter, int maxFreezeTime, int maxChangeTime){
              frozen.push_back(board_fields[randomX][randomY]);
          }
 
-         std::thread(&Game::sleepThread,this, maxChangeTime).detach();
+         std::thread(&Game::sleepThread, this, maxChangeTime).detach();
     }
 }
 
+/**
+ * Method makes thread sleep untill random time is up.
+ * @param time max time for which will the thread sleep
+ */
 void Game::sleepThread(int time){
     usleep(1000* (rand() % time));
     threadMtx.unlock();
 }
 
-
+/**
+ * Method makes all board fields unfrozen.
+ */
 void Game::unFreezeAll(){
     while(!frozen.empty()){
         BoardField *tmp =  frozen.back();
@@ -47,7 +90,10 @@ void Game::unFreezeAll(){
     }
 }
 
-
+/**
+ * Method checks if any board field change its state to unfrozen
+ * and if so, method calls user interface.
+ */
 void Game::unFreezeWhichCan(){
 
     std::list<BoardField*>::iterator i = frozen.begin();
@@ -63,21 +109,10 @@ void Game::unFreezeWhichCan(){
     }
 }
 
-
-
-Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UInt) {
-    UserInt = UInt;
-    backupGame = new Backup(size, this);
-    rules = new ReversiRules(size, backupGame);
-    sizeBoard = size;
-    gameOver = false;
-    currentPlayer = white;
-    this->discsToFreeze = discsToFreeze;
-    this->CHTime = CHTime;
-    this->FTime = FTime;
-}
-
-
+/**
+ * Method sets current player and checks if the player has any possible move, 
+ * if not, other player is sets or game over is raised.
+ */
 void Game::nextPlayer() {
 
     while(true){
@@ -105,6 +140,9 @@ void Game::nextPlayer() {
     }
 }
 
+/**
+ * Method provides undo operation.
+ */
 void Game::undo() {
 
     //unFreezAll();
@@ -133,6 +171,9 @@ void Game::undo() {
     }
 }
 
+/**
+ * Method provides redo operation.
+ */
 void Game::redo(){
 
     //unFreezAll();
@@ -161,16 +202,26 @@ void Game::redo(){
         Player *tmp = currentPlayer->getIsWhite() ? black: white;
         rules->calcScore(tmp);
     }
-
 }
 
-
+/**
+ * @return instance of player on turn
+ */
 Player* Game::getCurrentPlayer(){ return currentPlayer; }
 
+/**
+ * Game over status getter.
+ * @return true if game is over, else false
+ */
 bool Game::getIsGameOver(){
     return gameOver;
 }
 
+/**
+ * Methods adds player to the game.
+ * @param newPlayer instance of a new player
+ * @return true if success, else false (f.e. player already exists)
+ */
 bool Game::addPlayer(Player *newPlayer) {
 
     if(newPlayer->getIsWhite() && white == nullptr){
@@ -183,6 +234,5 @@ bool Game::addPlayer(Player *newPlayer) {
         return true;
     }
     return false;
-
 }
 

@@ -1,5 +1,21 @@
+/**
+ * This class creates board and implements methods over it.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */ 
+
 #include "Board.h"
 
+/**
+ * Created array of BoardField objects
+ * @param size size of board
+ */
 Board::Board(int size) {
     this->size = size;
 
@@ -8,16 +24,4 @@ Board::Board(int size) {
             board_fields[i][j] = new BoardField(i, j, size);
         }
     }
-}
-
-BoardField* Board::getField(int row, int col){
-    return board_fields[row][col];
-}
-
-void Board::putField(int row, int col, BoardField *field){
-    board_fields[row][col] = field;
-}
-
-int Board::getSize(){
-    return size;
 }

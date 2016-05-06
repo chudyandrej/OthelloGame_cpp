@@ -1,17 +1,26 @@
-//
-// Created by Andrej Oliver Chudý on 24/04/16.
-//
+/**
+ * File contains implemented methods of RiversiRules class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
 
 #include "Game.h"
-#include <iostream> //temp
 
-
-
+/**
+ * Constructor, initializes Reversi rules
+ * @param size Size of board
+ * @param backupGame Backup of game
+ */
 ReversiRules::ReversiRules(int size, Backup *backupGame){
     this->size = size;
     playBoard =  new Board(size);
     this->backupGame = backupGame;
-
 
     //starting position
     board_fields[ (size/2)-1][(size/2)-1]->putDisc(new Disc(true));
@@ -20,6 +29,13 @@ ReversiRules::ReversiRules(int size, Backup *backupGame){
     board_fields[(size/2)][(size/2)-1]->putDisc(new Disc(false));
 }
 
+/**
+ * Method decides if the player on turn can put disc to the place.
+ * @param x x-coordinate of the field
+ * @param y y-coordinate of the field
+ * @param playerTurn instance of player on turn
+ * @return true if the player can put disc, else false
+ */
 bool ReversiRules::canPutDisc(int x, int y, Player *playerTurn) {
     BoardField* b_field =  board_fields[x][y];
 
@@ -40,6 +56,13 @@ bool ReversiRules::canPutDisc(int x, int y, Player *playerTurn) {
     return false;
 }
 
+/**
+ * Method puts disc to the field.
+ * @param x x-coordinate of the field
+ * @param y y-coordinate of the field
+ * @param playerTurn instance of player on turn
+ * @return true if success, false otherwise
+ */
 bool ReversiRules::putDisc(int x, int y, Player* playerTurn) {
     BoardField  *b_field =  board_fields[x][y];
     std::vector<BoardField*> discs_for_turn;
@@ -61,7 +84,13 @@ bool ReversiRules::putDisc(int x, int y, Player* playerTurn) {
     return success;
 }
 
-
+/**
+ * Checks color of discs in a direction.
+ * @param field Start field
+ * @param way Direction of checking
+ * @param playerTurn Player on turn
+ * @return vector of turned fields
+ */
 std::vector<BoardField*> ReversiRules::chack_IN_direct(BoardField *field, int way, Player *playerTurn) {
     field = field->nextField(way);
     std::vector <BoardField*> candidate_turn;
@@ -78,9 +107,12 @@ std::vector<BoardField*> ReversiRules::chack_IN_direct(BoardField *field, int wa
     }
     candidate_turn.clear();
     return candidate_turn;
-
 }
 
+/**
+ * Method turns discs given.
+ * @param st vector of fields to be turned.
+ */
 void ReversiRules::turn_discs(std::vector<BoardField *> st) {
     BoardField* tmp;
     while (!st.empty()){
@@ -88,9 +120,12 @@ void ReversiRules::turn_discs(std::vector<BoardField *> st) {
         tmp->getDisc()->turn(UserInt);
         st.pop_back();
     }
-
 }
 
+/**
+ * Method implements AI algorithm of level 1 (beginner)
+ * @param UI instance of AI player
+ */
 void ReversiRules::uiAlgorithmLevel1(Player* UI) {
     int size = rules->getSize();
     for (int i = 0; i < size; i++) {
@@ -103,6 +138,10 @@ void ReversiRules::uiAlgorithmLevel1(Player* UI) {
     }
 }
 
+/**
+ * Method implements AI algorithm of level 2 (advanced)
+ * @param UI instance of AI player
+ */
 void ReversiRules::uiAlgorithmLevel2(Player *UI) {
     std::vector<BoardField*> discsForTurn;
     std::vector<BoardField*> maxTurns;
@@ -128,6 +167,10 @@ void ReversiRules::uiAlgorithmLevel2(Player *UI) {
     }
 }
 
+/**
+ * Method calculates score of current player.
+ * @param currentPlayer instance of current player
+ */
 void ReversiRules::calcScore(Player *currentPlayer) {
     int white_Disc = 0;
     int blac_Dsik = 0;
@@ -146,6 +189,12 @@ void ReversiRules::calcScore(Player *currentPlayer) {
 
 }
 
+/**
+ * Method finds out if current player has possibility to place disc somewhere,
+ * otherwise it's game over.
+ * @param currentPlayer instance of current player
+ * @return true if exists, else false
+ */
 bool ReversiRules::isExitsingTurn(Player *currentPlayer) {
     int size = rules->getSize();
     for (int i = 0; i < size; i++) {
@@ -158,6 +207,10 @@ bool ReversiRules::isExitsingTurn(Player *currentPlayer) {
     return false;
 }
 
+/**
+ * Board size getter.
+ * @return size of board
+ */
 int ReversiRules::getSize(){
     return size;
 }
