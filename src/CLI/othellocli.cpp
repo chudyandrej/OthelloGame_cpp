@@ -248,7 +248,7 @@ int OthelloCLI::printGameOverMessage(){
  */
 int OthelloCLI::otherOption(char x){
 
-    if(x == 'e'){
+    if(x == 'x'){
         return 2;
     }
     else if(x == 's'){
