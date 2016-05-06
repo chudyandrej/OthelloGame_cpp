@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "src/gameObj/Game.h"
+#include "src/GUI/PlayArea.h"
 
 class OthelloCLI : UserInterface{
 
@@ -30,9 +31,12 @@ private:
     int frozeTime;
     int changeTimer;*/
 
-    void getSettings();
+    int getSettings();
+    void initNewGame();
     void commandListener();
     void printBoard();
+    void printGameOverMessage();
+    bool otherOption(char x);
 
     void changeDisc(int x, int y, bool isWhite);
     void deleteDisc(int x, int y);
