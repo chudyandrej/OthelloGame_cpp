@@ -49,3 +49,5 @@ pack:
 
 clean:
 	rm -r ./doc
+	rm hra2016
+	rm hra2016-cli
