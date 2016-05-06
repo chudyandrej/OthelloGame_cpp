@@ -28,9 +28,13 @@ void Backup::saveBackupRecord(){
 
 }
 
-void Backup::serializeBackup(){
+int Backup::serializeBackup(){
     std::ofstream output;
     output.open("saved_game.txt");
+
+    if(output.fail()){
+        return 1; //couldn't open a file
+    }
 
     output << game->white->getName() << ":" << ((game->white->getIs_pc()) ? "bot":"hum") << ":";
     output << ((game->white->getIs_pc()) ? std::to_string(game->white->level) :"0") <<"\n";
@@ -57,10 +61,15 @@ void Backup::serializeBackup(){
     }
 
     output.close();
+    return 0;
 }
 
 std::tuple<int, std::string, int, std::string, int> Backup::loadSettings(){
     std::ifstream input("saved_game.txt");
+
+    if(input.fail()){
+        return std::make_tuple(0, "", 0, "", 0);    //returns no information when error
+    }
 
     std::string line;
 

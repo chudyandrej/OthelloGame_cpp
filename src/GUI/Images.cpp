@@ -1,7 +1,7 @@
 #include "Images.h"
 
 Images::Images(int boardSize){
-    int size;
+    int size=0;
     switch(boardSize){
     case 6:
         size = 63;

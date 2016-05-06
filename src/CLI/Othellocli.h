@@ -3,8 +3,8 @@
 
 #include <string>
 #include <iostream>
-#include "src/gameObj/Game.h"
-#include "src/GUI/PlayArea.h"
+#include "../gameObj/Game.h"
+#include "../CreateGameOverMsg.h"
 
 class OthelloCLI : UserInterface{
 

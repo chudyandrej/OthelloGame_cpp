@@ -147,37 +147,13 @@ std::string PlayArea::gameOverDialogMsg(){
         msg = "Stalemate! Winners:<br>  -"+player1->getName()+"<br>  -"+player2->getName()+"<br>Score: "+std::to_string(score1);
     }
     else if(player1->getIs_pc() || player2->getIs_pc()){
-        msg = createSinglePlayerGameOverMsg(score1, score2, player1, player2);
+        msg = CreateGameOverMsg::createSinglePlayerGameOverMsg(score1, score2, player1, player2);
     }else{
-        msg = createMultiPlayerGameOverMsg(score1, score2, player1, player2);
+        msg = CreateGameOverMsg::createMultiPlayerGameOverMsg(score1, score2, player1, player2);
     }
 
     msg = msg + "<br>Would you like to play again?";
 
     return msg;
 }
-
-std::string PlayArea::createSinglePlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2){
-   std::string msg;
-   if(player1->getIs_pc()) {
-       msg = (score1 > score2) ? "You LOST. Computer won.<br>" : "Congratulation!<br>You WON.<br>";
-       msg = msg + "Your score: " + std::to_string(score2) + "<br>" +player1->getName()+": "+std::to_string(score1);
-   }
-   else{
-       msg = (score1 < score2) ? "You LOST. Computer won.<br>" : "Congratulation!<br>You WON.<br>";
-       msg = msg + "Your score: " + std::to_string(score1) + "<br>" +player2->getName()+": "+std::to_string(score2);
-   }
-   return msg;
-}
-
-std::string PlayArea::createMultiPlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2){
-    std::string msg;
-    if(score1 > score2){        //player1 won
-        msg = player1->getName() + " won with score: " + std::to_string(score1);
-    }else{                      //player2 won
-        msg = player2->getName() + " won with score: " + std::to_string(score2);
-    }
-    return msg;
-}
-
 

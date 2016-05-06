@@ -54,7 +54,7 @@ public:
     void addTurnedDisc(std::vector <BoardField*> turnedDiscs);
     void saveBackupRecord();
 
-    void serializeBackup();
+    int serializeBackup();
 
     static std::tuple<int, std::string, int, std::string, int> loadSettings();
     static std::vector<std::string> split(std::string input, char delimiter);

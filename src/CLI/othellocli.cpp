@@ -44,6 +44,11 @@ int OthelloCLI::getSettings(){
         //init loading of game
         std::tie(boardSize, player1Name, level1, player2Name, level2) = Backup::loadSettings();
 
+        if(boardSize == 0){
+            std::cout << "Loading game FAILED, no saved game exits!\n";
+            getSettings();
+        }
+
         if(level2 != 0){    //it's computer player
             gameMode = level2;
             computerName = player2Name;
@@ -181,9 +186,9 @@ void OthelloCLI::printGameOverMessage(){
         msg = "Stalemate! Winners:\n  -"+player1->getName()+"\n  -"+player2->getName()+"\nScore: "+std::to_string(score1);
     }
     else if(player1->getIs_pc() || player2->getIs_pc()){
-        msg = PlayArea::createSinglePlayerGameOverMsg(score1, score2, player1, player2);
+        msg = CreateGameOverMsg::createSinglePlayerGameOverMsg(score1, score2, player1, player2);
     }else{
-        msg = PlayArea::createMultiPlayerGameOverMsg(score1, score2, player1, player2);
+        msg = CreateGameOverMsg::createMultiPlayerGameOverMsg(score1, score2, player1, player2);
     }
     //std::replace( msg.begin(), msg.end(), '<br>', '\n');
     std::cout << msg << "\nWould you like to play again? [y/n]";
@@ -203,8 +208,11 @@ bool OthelloCLI::otherOption(char x){
     }
     else if(x == 's'){
         //save game
-        newGame->backupGame->serializeBackup();
-        std::cout << "Game was successfuly saved\n";
+        if(newGame->backupGame->serializeBackup() == 1){
+            std::cout << "FAIL, can't create a file\n";
+        }else{
+             std::cout << "Game was successfuly saved\n";
+        }
         return true;
     }
     return false;

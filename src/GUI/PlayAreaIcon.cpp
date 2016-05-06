@@ -32,7 +32,6 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             reply = QMessageBox::question(parent, "Reload Game", "<font color='#ffffff'>Would you like to reload game and start again?</font>", QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                 //start new game
-                //delete game? delete players and board?
                 grandParent->setWidget(4);
             }
             break;
@@ -40,7 +39,6 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             reply = QMessageBox::question(parent, "Quit Game", "<font color='#ffffff'>Would you like to quit game and go to the menu?</font>", QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                  //start new game
-                //delete game? delete players and board?
                 parent->~PlayArea();
                 grandParent->initMenuAgain();
             }
@@ -52,8 +50,14 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             parent->getCurrentGame()->redo();
             break;
         case 4: //save
-            parent->getCurrentGame()->backupGame->serializeBackup();
-            break;
+            std::string msg;
+            if(parent->getCurrentGame()->backupGame->serializeBackup() == 0){
+                msg = "Game was successfuly saved!\n";
+            }
+            else{
+                msg = "FAIL, can't create a file\n";
+            }
+            QMessageBox::information(parent, "Save Game Process", "<font color='#ffffff'>"+QString::fromUtf8(msg.c_str())+"</font>", QMessageBox::Ok);
     }
 }
 

@@ -2,6 +2,7 @@
 #define PLAYAREA_H
 
 #include <QDialog>
+#include <sstream>
 #include "OthelloGUI.h"
 class PlayArea;
 //#include "BoardFieldWidget.h"
@@ -9,8 +10,9 @@ class PlayArea;
 #include "PlayAreaIcon.h"
 #include "ui_PlayArea.h"
 #include "Images.h"
+#include "../CreateGameOverMsg.h"
 #include "../UserInterface.h"
-#include <sstream>
+
 
 
 namespace Ui {
@@ -27,9 +29,6 @@ public:
     Game *getCurrentGame();
     void showGameOverDialog();
     OthelloGUI *getParent();
-
-    static std::string createSinglePlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2);
-    static std::string createMultiPlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2);
 
 signals:
     void linkHovered(QString);
