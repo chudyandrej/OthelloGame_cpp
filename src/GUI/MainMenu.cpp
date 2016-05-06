@@ -33,9 +33,9 @@ void MainMenu::on_loadGameBtn_clicked(){
     int level1, level2, size;
 
     //init loading of game
-    std::tie(size, p1Name, p1, level1, p2Name, p2, level2) = Backup::loadSettings();
+    std::tie(size, p1Name, level1, p2Name, level2) = Backup::loadSettings();
 
-    if(p2){
+    if(level2 != 0){    //it's computer player
         parent->setGameMode(level2);
         parent->setNames(p1Name, "Player2", p2Name);
     }

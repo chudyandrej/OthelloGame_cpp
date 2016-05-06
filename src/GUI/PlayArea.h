@@ -4,9 +4,11 @@
 #include <QDialog>
 #include "OthelloGUI.h"
 class PlayArea;
-#include "BoardFieldWidget.h"
+//#include "BoardFieldWidget.h"
+#include "BoardFieldLabel.h"
 #include "PlayAreaIcon.h"
 #include "ui_PlayArea.h"
+#include "Images.h"
 #include "../UserInterface.h"
 #include <sstream>
 
@@ -24,6 +26,10 @@ public:
     ~PlayArea();
     Game *getCurrentGame();
     void showGameOverDialog();
+    OthelloGUI *getParent();
+
+    static std::string createSinglePlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2);
+    static std::string createMultiPlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2);
 
 signals:
     void linkHovered(QString);
@@ -34,13 +40,11 @@ private:
     Game *newGame = nullptr;
     Player *player1 = nullptr;
     Player *player2 = nullptr;
-    BoardFieldWidget *boardFields[12][12];
+    BoardFieldLabel *boardFields[12][12];
     int score1;
     int score2;
 
     std::string gameOverDialogMsg();
-    std::string createSinglePlayerGameOverMsg();
-    std::string createMultiPlayerGameOverMsg();
     void initBoard();
     void initNewGame();
 
@@ -49,7 +53,6 @@ private:
     void freezeField(int x, int y);
     void unFreezeField(int x, int y);
     void setGameState(int score1, int score2, bool isWhite);
-
 };
 
 #endif // PLAYAREA_H

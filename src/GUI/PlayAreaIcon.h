@@ -9,7 +9,6 @@
 #include "OthelloGUI.h"
 
 class PlayAreaIcon : public QLabel{
-     //Q_OBJECT
 
 public:
     PlayAreaIcon(int x,PlayArea *parent, OthelloGUI *grandParent);

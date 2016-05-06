@@ -44,6 +44,10 @@ void PlayArea::showGameOverDialog(){
       }
 }
 
+OthelloGUI *PlayArea::getParent(){
+    return parent;
+}
+
 void PlayArea::initBoard(){
     int size = parent->getBoardSize();
 
@@ -51,14 +55,16 @@ void PlayArea::initBoard(){
     QGridLayout *grid = new QGridLayout;
     grid->setHorizontalSpacing(0);
     grid->setVerticalSpacing(0);
-    ui->board->setLayout(grid);
+
+    Images *I = new Images(size);
 
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
-            boardFields[i][j] = new BoardFieldWidget(i, j, this);
-            grid->addWidget(boardFields[i][j],i,j,0 );//-1 -1
+            boardFields[i][j] = new BoardFieldLabel(i, j, this, I);
+            grid->addWidget(boardFields[i][j],i,j,0 );
         }
     }
+    ui->board->setLayout(grid);
 
     //set labels on game status bar
     ui->player1NameLabel->setText(QString::fromUtf8(parent->getP1Name().c_str()));
@@ -83,7 +89,6 @@ void PlayArea::initBoard(){
     iconsGrid->addWidget(new PlayAreaIcon(2, this, parent), 0,2, -1,-1,0);
     iconsGrid->addWidget(new PlayAreaIcon(3, this, parent), 0,3, -1,-1,0);
     iconsGrid->addWidget(new PlayAreaIcon(4, this, parent), 0,4, -1,-1,0);
-
 }
 
 void PlayArea::initNewGame(){
@@ -142,9 +147,9 @@ std::string PlayArea::gameOverDialogMsg(){
         msg = "Stalemate! Winners:<br>  -"+player1->getName()+"<br>  -"+player2->getName()+"<br>Score: "+std::to_string(score1);
     }
     else if(player1->getIs_pc() || player2->getIs_pc()){
-        msg = createSinglePlayerGameOverMsg();
+        msg = createSinglePlayerGameOverMsg(score1, score2, player1, player2);
     }else{
-        msg = createMultiPlayerGameOverMsg();
+        msg = createMultiPlayerGameOverMsg(score1, score2, player1, player2);
     }
 
     msg = msg + "<br>Would you like to play again?";
@@ -152,7 +157,7 @@ std::string PlayArea::gameOverDialogMsg(){
     return msg;
 }
 
-std::string PlayArea::createSinglePlayerGameOverMsg(){
+std::string PlayArea::createSinglePlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2){
    std::string msg;
    if(player1->getIs_pc()) {
        msg = (score1 > score2) ? "You LOST. Computer won.<br>" : "Congratulation!<br>You WON.<br>";
@@ -165,7 +170,7 @@ std::string PlayArea::createSinglePlayerGameOverMsg(){
    return msg;
 }
 
-std::string PlayArea::createMultiPlayerGameOverMsg(){
+std::string PlayArea::createMultiPlayerGameOverMsg(int score1, int score2, Player *player1, Player *player2){
     std::string msg;
     if(score1 > score2){        //player1 won
         msg = player1->getName() + " won with score: " + std::to_string(score1);

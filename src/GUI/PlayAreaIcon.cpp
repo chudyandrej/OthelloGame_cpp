@@ -21,7 +21,6 @@ void PlayAreaIcon::mouseMoveEvent(QMouseEvent *){
     if(!pressed){
         setHoverImage();
     }
-
 }
 
 void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
@@ -74,6 +73,7 @@ void PlayAreaIcon::setImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undo.png)");
             break;
         case 3:
+            this->setStyleSheet("background-image: url(:/lib/icons/redo.png)");
             break;
         case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGame.png)");
@@ -93,6 +93,7 @@ void PlayAreaIcon::setHoverImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undoEntered.png)");
             break;
         case 3:
+            this->setStyleSheet("background-image: url(:/lib/icons/redoEntered.png)");
             break;
         case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGameEntered.png)");
@@ -112,6 +113,7 @@ void PlayAreaIcon::setPressedImage(){
             this->setStyleSheet("background-image: url(:/lib/icons/undoPressed.png)");
             break;
         case 3:
+            this->setStyleSheet("background-image: url(:/lib/icons/redoPressed.png)");
             break;
         case 4:
             this->setStyleSheet("background-image: url(:/lib/icons/saveGamePressed.png)");

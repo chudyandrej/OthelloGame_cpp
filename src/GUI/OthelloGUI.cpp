@@ -68,7 +68,7 @@ void OthelloGUI::setWidget(int page){
             stackedWidget->setCurrentWidget(settingsPage);
             break;
         case 4:             //init board and game
-            playAreaPage = new PlayArea(this, false);
+            playAreaPage = new PlayArea(this);
             stackedWidget->addWidget(playAreaPage);
             stackedWidget->setCurrentWidget(playAreaPage);
             break;
