@@ -64,7 +64,6 @@ private:
     void unFreezeWhichCan();
     void unFreezeAll();
     std::list<BoardField*> frozen;
-
 };
 
 

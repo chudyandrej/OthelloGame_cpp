@@ -1,7 +1,22 @@
+/**
+ * File contains method for PlayArea class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #include "PlayArea.h"
 #include <stdio.h>
 
 
+/**
+ * Constructor of PlayArea page.
+ */
 PlayArea::PlayArea(OthelloGUI *parent, bool loadingGame) : ui(new Ui::PlayArea){
 
     ui->setupUi(this);
@@ -17,15 +32,24 @@ PlayArea::PlayArea(OthelloGUI *parent, bool loadingGame) : ui(new Ui::PlayArea){
     }
 }
 
-
+/**
+ * Desctructor.
+ */
 PlayArea::~PlayArea(){
     delete ui;
 }
 
+/**
+ * Current game getter.
+ * @return pointer to current game
+ */
 Game *PlayArea::getCurrentGame(){
     return newGame;
 }
 
+/**
+ * Method creates pop up window with game summary info.
+ */
 void PlayArea::showGameOverDialog(){
     std::string msg = gameOverDialogMsg();
 
@@ -34,7 +58,6 @@ void PlayArea::showGameOverDialog(){
     reply = QMessageBox::question(this, "Game Over", "<font color='#ffffff'>"+QString::fromUtf8(msg.c_str())+"</font>", QMessageBox::Yes|QMessageBox::No);
       if (reply == QMessageBox::Yes) {
         //start new game
-        //delete game? delete players and board?
         parent->setWidget(4);
       }
       else {
@@ -44,10 +67,18 @@ void PlayArea::showGameOverDialog(){
       }
 }
 
+/**
+ * Parent getter.
+ * @return pointer to the parent. 
+ */
 OthelloGUI *PlayArea::getParent(){
     return parent;
 }
 
+/**
+ * Method initializes board, sets icons above board
+ * and game status bar 
+ */
 void PlayArea::initBoard(){
     int size = parent->getBoardSize();
 
@@ -61,7 +92,7 @@ void PlayArea::initBoard(){
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
             boardFields[i][j] = new BoardFieldLabel(i, j, this, I);
-            grid->addWidget(boardFields[i][j],i,j,0 );
+            grid->addWidget(boardFields[i][j], i, j, 0);
         }
     }
     ui->board->setLayout(grid);
@@ -91,6 +122,9 @@ void PlayArea::initBoard(){
     iconsGrid->addWidget(new PlayAreaIcon(4, this, parent), 0,4, -1,-1,0);
 }
 
+/**
+ * Method initializes new game
+ */
 void PlayArea::initNewGame(){
 
     //init game
@@ -109,22 +143,52 @@ void PlayArea::initNewGame(){
     newGame->addPlayer(player2);
 }
 
+/**
+ * Method for changing disc's color
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void PlayArea::changeDisc(int x, int y, bool isWhite){
     boardFields[x][y]->setDisc(isWhite);
 }
 
+/**
+ * Method for changing disc's color
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void PlayArea::deleteDisc(int x, int y){
     boardFields[x][y]->deleteDisc();
 }
 
+/**
+ * Method freezes the field.
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void PlayArea::freezeField(int x, int y){
     boardFields[x][y]->freeze();
 }
 
+/**
+ * Method unfreezes the field.
+ * @param x x-coordinate
+ * @param y y-coordinate
+ * @param isWhite color to which disc will be changed
+ */
 void PlayArea::unFreezeField(int x, int y){
     boardFields[x][y]->unFreeze();
 }
 
+/**
+ * Method sets game state information
+ * @param score1  player1's score
+ * @param score2  player2's score
+ * @param isWhite color of player on turn
+ */
 void PlayArea::setGameState(int score1, int score2, bool isWhite){
     if(isWhite){
         ui->scoreArrayLabel->setStyleSheet("QLabel {background-image: url(:/lib/arrow_r.png)}");
@@ -140,7 +204,10 @@ void PlayArea::setGameState(int score1, int score2, bool isWhite){
     this->score2 = score2;
 }
 
-
+/**
+ * Method creates game summary message when game is over.
+ * @return message
+ */
 std::string PlayArea::gameOverDialogMsg(){
     std::string msg;
     if (score1 == score2){      //stalemate

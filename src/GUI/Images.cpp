@@ -1,5 +1,21 @@
+/**
+ * File contains initialization of images for Images class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #include "Images.h"
 
+/**
+ * Images constructor.
+ * @param boardSize size of board
+ */
 Images::Images(int boardSize){
     int size=0;
     switch(boardSize){
@@ -41,6 +57,9 @@ Images::Images(int boardSize){
     *fieldBlackDiscFrozen = fieldBlackDiscFrozen->scaled(size, size, Qt::IgnoreAspectRatio);
 }
 
+/**
+ * Destructor.
+ */
 Images::~Images(){
     delete field;
     delete fieldCanPutDisc;

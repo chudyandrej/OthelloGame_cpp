@@ -1,3 +1,16 @@
+/**
+ * File contains OthelloCLI methods for game control 
+ * through Command User Interface.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #include "Othellocli.h"
 
 /**

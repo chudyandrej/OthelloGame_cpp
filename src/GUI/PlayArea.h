@@ -1,11 +1,22 @@
+/**
+ * File contains methods for PlayArea class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #ifndef PLAYAREA_H
 #define PLAYAREA_H
 
 #include <QDialog>
 #include <sstream>
 #include "OthelloGUI.h"
-class PlayArea;
-//#include "BoardFieldWidget.h"
+class PlayArea;         //forward declaration
 #include "BoardFieldLabel.h"
 #include "PlayAreaIcon.h"
 #include "ui_PlayArea.h"
@@ -14,9 +25,8 @@ class PlayArea;
 #include "../UserInterface.h"
 
 
-
 namespace Ui {
-class PlayArea;
+    class PlayArea;
 }
 
 class PlayArea : public QDialog, UserInterface{

@@ -1,6 +1,21 @@
+/**
+ * File contains methods for Settings class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #include "Settings.h"
 
 
+/**
+ * Constructor of Settings.
+ */
 Settings::Settings(OthelloGUI *parent) : ui(new Ui::Settings){
 
     ui->setupUi(this);
@@ -18,11 +33,17 @@ Settings::Settings(OthelloGUI *parent) : ui(new Ui::Settings){
     ui->changerTimerTField->setText(QString::number(parent->getChangeTimer()));
 }
 
+/**
+ * Destructor.
+ */
 Settings::~Settings(){
     delete ui;
 }
 
-
+/**
+ * When confirm button clicked, check values obtained from settings form 
+ * and set them.
+ */
 void Settings::on_confirmBtn_clicked(){
 
     parent->setNames(ui->player1TextField->text().toLatin1().data(),    //convert QString to string

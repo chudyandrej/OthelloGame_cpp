@@ -1,3 +1,15 @@
+/**
+ * File contains methods for OthelloGUI class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #ifndef OTHELLOGUI_H
 #define OTHELLOGUI_H
 
@@ -6,7 +18,7 @@
 #include <QStackedWidget>
 #include <qboxlayout.h>
 #include <string>
-class OthelloGUI;
+class OthelloGUI;       //forward declaration
 #include "MainMenu.h"
 #include "GameLevel.h"
 #include "ChooseBoardSize.h"

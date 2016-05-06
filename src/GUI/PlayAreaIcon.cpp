@@ -1,5 +1,9 @@
 #include "PlayAreaIcon.h"
 
+
+/**
+ * Constructor of PlayAreaIcon.
+ */
 PlayAreaIcon::PlayAreaIcon(int x, PlayArea *parent, OthelloGUI *grandParent){
     xCoordinate = x;
     this->parent = parent;
@@ -11,18 +15,26 @@ PlayAreaIcon::PlayAreaIcon(int x, PlayArea *parent, OthelloGUI *grandParent){
     setImage();
 }
 
-
+/**
+ * Implements behaviour when mouse holds the icon.
+ */
 void PlayAreaIcon::mousePressEvent(QMouseEvent *){
     setPressedImage();
     pressed = true;
 }
 
+/**
+ * Implements behaviour when mouse enters the icon.
+ */
 void PlayAreaIcon::mouseMoveEvent(QMouseEvent *){
     if(!pressed){
         setHoverImage();
     }
 }
 
+/**
+ * Implements behaviour when mouse clicks the icon.
+ */
 void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
     pressed = false;
     QMessageBox::StandardButton reply;
@@ -61,10 +73,16 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
     }
 }
 
+/**
+ * Implements behaviour when mouse leaves the icon.
+ */
 void PlayAreaIcon::leaveEvent(QEvent *){
     setImage();
 }
 
+/**
+ * Method sets standard image of icon.
+ */
 void PlayAreaIcon::setImage(){
     switch(xCoordinate){
         case 0:
@@ -85,6 +103,9 @@ void PlayAreaIcon::setImage(){
     }
 }
 
+/**
+ * Method sets image of icon when the icon is hovered.
+ */
 void PlayAreaIcon::setHoverImage(){
     switch(xCoordinate){
         case 0:
@@ -105,6 +126,9 @@ void PlayAreaIcon::setHoverImage(){
     }
 }
 
+/**
+ * Method sets image of icon when the icon is pressed.
+ */
 void PlayAreaIcon::setPressedImage(){
     switch(xCoordinate){
         case 0:

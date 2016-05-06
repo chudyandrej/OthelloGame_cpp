@@ -1,3 +1,15 @@
+/**
+ * Header file for ChooseBoardSize class.
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #ifndef CHOOSEBOARDSIZE_H
 #define CHOOSEBOARDSIZE_H
 

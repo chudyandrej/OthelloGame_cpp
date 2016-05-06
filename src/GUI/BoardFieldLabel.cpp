@@ -1,6 +1,27 @@
+/**
+ * This class implements methods of board field such as:
+ * set or delete disc, froze or unfroze field according to its content.
+ * The class also provides board field features such as changing background
+ * of field, when mouse hovers and player can put disc to the field 
+ *
+ * @project HRA2016
+ * @author Andrej Chudý
+ * @email xchudy03@stud.fit.vutbr.cz
+ * @author Martin Kopec
+ * @email xkopec42@stud.fit.vutbr.cz
+ * 
+ * @date: 06.05.2016
+ */
+
 #include "BoardFieldLabel.h"
 
-
+/**
+ * Constructor method initialize one board field
+ * @param row number of row, where field is placed
+ * @param col number of col, where field is placed
+ * @param parent instance of PlayArea for access to game and Game method
+ * @param I instance of Images class containing all images needed for field
+ */
 BoardFieldLabel::BoardFieldLabel(int x, int y, PlayArea *parent, Images *I){
 
     this->setMouseTracking(true);
@@ -35,15 +56,14 @@ BoardFieldLabel::BoardFieldLabel(int x, int y, PlayArea *parent, Images *I){
     this->y = y;
 }
 
-BoardFieldLabel::~BoardFieldLabel(){
-
-}
-
+/**
+ * Method sets background to background with disc according to color of a player.
+ * @param isWhite color of a player
+ */
 void BoardFieldLabel::setDisc(bool isWhite){
     pressed = true;
 
     if(isWhite){
-
         this->setPixmap(*I->fieldWhiteDisc);
         currentBg = I->fieldWhiteDisc;
     }else{
@@ -52,11 +72,17 @@ void BoardFieldLabel::setDisc(bool isWhite){
     }
 }
 
+/**
+ * Deletes disc, so changes background to the one without a disc.
+ */
 void BoardFieldLabel::deleteDisc(){
     pressed = false;
     this->setPixmap(*I->field);
 }
 
+/**
+ * Freeze the field.
+ */
 void BoardFieldLabel::freeze(){
     if(frozen){ return; }
     frozen = true;
@@ -76,13 +102,18 @@ void BoardFieldLabel::freeze(){
     }
 }
 
+/**
+ * Unfreeze the field.
+ */
 void BoardFieldLabel::unFreeze(){
     frozen = false;
     std::cout << "unfreeze\n";
     this->setPixmap(*currentBg);
-
 }
 
+/**
+ * Method implements behaviour of the field when mouse press the field
+ */
 void BoardFieldLabel::mousePressEvent(QMouseEvent *){
     Player *tmp = parent->getCurrentGame()->getCurrentPlayer();
 
@@ -96,6 +127,9 @@ void BoardFieldLabel::mousePressEvent(QMouseEvent *){
     }
 }
 
+/**
+ * Method implements behaviour of the field when mouse moves on the field
+ */
 void BoardFieldLabel::mouseMoveEvent(QMouseEvent *){
 
     if(parent->getCurrentGame()->getCurrentPlayer()->canPutDisc(x, y)){
@@ -103,6 +137,9 @@ void BoardFieldLabel::mouseMoveEvent(QMouseEvent *){
     }
 }
 
+/**
+ * Method implements behaviour of the field when mouse leaves the field
+ */
 void BoardFieldLabel::leaveEvent(QEvent *){
     if(!pressed && !frozen){    //if there is no disc and it's not frozen
         this->setPixmap(*I->field);
