@@ -12,9 +12,13 @@ PACKNAME = xchudy03-xkopec42
 ALLDIRS	 = ./src/*/* ./doc/ ./examples/
 ALLFILES = Makefile README.txt
 
+#path to qmake on merlin
+#QMAKE = /usr/local/share/Qt-5.5.1/5.5/gcc_64/bin/qmake 
+#
+#path to older qmake on merlin
+QMAKE = /usr/local/share/Qt-5.2.1/5.2.1/gcc_64/bin/qmake 
 
-#QMAKE = /usr/local/share/Qt-5.2.1/5.2.1/gcc_64/bin/qmake 
-QMAKE = qmake
+#QMAKE = qmake
 
 all: cli gui 
 
