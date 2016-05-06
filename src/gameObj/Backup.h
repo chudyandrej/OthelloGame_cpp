@@ -56,7 +56,7 @@ public:
 
     void serializeBackup();
 
-    static std::tuple<int, std::string, bool, int, std::string, bool, int> loadSettings();
+    static std::tuple<int, std::string, int, std::string, int> loadSettings();
     static std::vector<std::string> split(std::string input, char delimiter);
     void loadGame();
 };

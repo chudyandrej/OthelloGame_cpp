@@ -9,6 +9,6 @@ UserInterface *UserInt;
 
 int main(int argc, char *argv[]){
 
-    new OthelloGUI(argc, argv);
-    //new OthelloCLI();
+    //new OthelloGUI(argc, argv);
+    new OthelloCLI();
 }

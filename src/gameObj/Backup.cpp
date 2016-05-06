@@ -59,7 +59,7 @@ void Backup::serializeBackup(){
     output.close();
 }
 
-std::tuple<int, std::string, bool, int, std::string, bool, int> Backup::loadSettings(){
+std::tuple<int, std::string, int, std::string, int> Backup::loadSettings(){
     std::ifstream input("saved_game.txt");
 
     std::string line;
@@ -74,14 +74,12 @@ std::tuple<int, std::string, bool, int, std::string, bool, int> Backup::loadSett
     int size = std::stoi(line);
 
 
-    bool p1 = (player1[1] == "hum") ? false : true;
-    bool p2 = (player2[1] == "hum") ? false : true;
     int level1 = (player1[1] == "hum") ? 0 : std::stoi(player1[2]);
     int level2 = (player2[1] == "hum") ? 0 : std::stoi(player2[2]);
 
     input.close();
 
-    return std::make_tuple(size, player1[0], p1, level1, player2[0], p2, level2);
+    return std::make_tuple(size, player1[0], level1, player2[0], level2);
 }
 
 void Backup::loadGame(){

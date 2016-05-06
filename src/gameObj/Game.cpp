@@ -23,13 +23,12 @@ void Game::frozenFields(int counter, int maxFreezeTime, int maxChangeTime){
        for (int x = 0; x < counter; x++) {
              int randomX = (int) (rand() % (sizeBoard - 1));
              int randomY = (int) (rand() % (sizeBoard - 1));
-             std::cout << randomX << " " << randomY << "\n";
+
              board_fields[randomX][randomY]->freezeDisc(maxFreezeTime);
              frozen.push_back(board_fields[randomX][randomY]);
          }
-         std::cout << "here??? " << maxChangeTime << "\n";
-         std::thread(&Game::sleepThread,this, maxChangeTime).detach();
 
+         std::thread(&Game::sleepThread,this, maxChangeTime).detach();
     }
 }
 
@@ -53,10 +52,10 @@ void Game::unFreezeWhichCan(){
 
     std::list<BoardField*>::iterator i = frozen.begin();
     while (i != frozen.end()){
-        if ((*i)->freezeEnd) {
-            (*i)->freezeEnd = false;
-            frozen.erase(i++);  // alternatively, i = items.erase(i);
+        if ((*i)->checkUnfreeze()) {
+            (*i)->isFreeze = false;
             UserInt->unFreezeField((*i)->row, (*i)->col);
+            frozen.erase(i++);
         }
         else{
             ++i;
@@ -76,9 +75,6 @@ Game::Game(int size, int discsToFreeze, int CHTime, int FTime, UserInterface *UI
     this->discsToFreeze = discsToFreeze;
     this->CHTime = CHTime;
     this->FTime = FTime;
-    //this->discsToFreeze = 6;
-    //this->CHTime = 5;
-    //this->FTime = 1;
 }
 
 
@@ -180,21 +176,13 @@ bool Game::addPlayer(Player *newPlayer) {
     if(newPlayer->getIsWhite() && white == nullptr){
         this->white = newPlayer;
         this->currentPlayer = newPlayer;
-        //backupGame.setPlayer1(white);
         return true;
 
     }else if (!newPlayer->getIsWhite() && black == nullptr){
         this->black = newPlayer;
-        //backupGame.setPlayer2(black);
         return true;
     }
     return false;
 
 }
-
-
-
-
-
-
 

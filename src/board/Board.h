@@ -53,9 +53,8 @@ public:
     void freezeDisc(int time);
 
     void sleepFunction(int time);
-    void setSynchValue();
-    bool getSynchValue();
-    std::mutex synchValMtx;
+    std::mutex freezeEndMtx;
+    bool checkUnfreeze();
 };
 
 

@@ -76,29 +76,24 @@ void BoardField::freezeDisc(int time){
     isFreeze = true;
 
     UserInt->freezeField(row, col);
-    //freezeEnd =
-    std::thread(&BoardField::sleepFunction,this, time).detach();
-    std::cout << &freezeEnd << "\n";
-
+    std::thread(&BoardField::sleepFunction, this, time).detach();
 }
 
 void BoardField::sleepFunction(int time){
+    freezeEndMtx.lock();
+
     usleep(1000* (rand() % time) );
-    setSynchValue();
+    freezeEndMtx.unlock();
 }
 
-void BoardField::setSynchValue(){
-    synchValMtx.lock();
-    std::cout << &freezeEnd << "fuck\n";
-    freezeEnd = true;
-    synchValMtx.unlock();
+bool BoardField::checkUnfreeze(){
+    if(freezeEndMtx.try_lock()){
+        freezeEndMtx.unlock();
+        return true;
+    }
+    return false;
 }
 
-bool BoardField::getSynchValue(){
-    synchValMtx.lock();
-    return freezeEnd;
-    synchValMtx.unlock();
-}
 
 
 

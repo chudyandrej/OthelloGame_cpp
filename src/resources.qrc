@@ -26,5 +26,8 @@
         <file>lib/icons/undoPressed.png</file>
         <file>lib/blackDisc.png</file>
         <file>lib/whiteDisc.png</file>
+        <file>lib/icons/redo.png</file>
+        <file>lib/icons/redoEntered.png</file>
+        <file>lib/icons/redoPressed.png</file>
     </qresource>
 </RCC>
