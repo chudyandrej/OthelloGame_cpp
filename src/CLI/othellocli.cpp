@@ -115,7 +115,6 @@ void OthelloCLI::initNewGame(){
 
     newGame->addPlayer(player2);
 
-
     //initialize game state
     setGameState(2, 2, false);
 }
@@ -284,17 +283,17 @@ void OthelloCLI::deleteDisc(int x, int y){
 }
 
 /**
- * Not supported for CLI mode.
+ * Not supported for CLI mode, because it would be not well readable
  */
 void OthelloCLI::freezeField(int x, int y){
-    //friezing fields is for CLI not supported
+    boardFields[x][y] = '*'; //it's incomplete, because it's not supported, look for GUI freeze method
 }
 
 /**
- * Not supported for CLI mode.
+ * Not supported for CLI mode, because it would be not well readable
  */
 void OthelloCLI::unFreezeField(int x, int y){
-    //friezing fields is for CLI not supported
+    boardFields[x][y] = '-';//it's incomplete, because it's not supported, look for GUI freeze method
 }
 
 /**
