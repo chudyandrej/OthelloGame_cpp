@@ -9,7 +9,7 @@ CLI = hra2016-cli
 GUI = hra2016
 
 PACKNAME = xchudy03-xkopec42
-ALLDIRS	 = ./src/*/* ./doc/ ./examples/
+ALLDIRS	 = ./src/* ./src/*/* ./src/lib/*/* ./doc/ ./examples/
 ALLFILES = Makefile README.txt
 
 #path to qmake on merlin
@@ -53,5 +53,6 @@ pack:
 
 clean:
 	rm -r ./doc
+	mkdir doc
 	rm hra2016
 	rm hra2016-cli
