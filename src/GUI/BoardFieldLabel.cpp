@@ -86,18 +86,14 @@ void BoardFieldLabel::deleteDisc(){
 void BoardFieldLabel::freeze(){
     if(frozen){ return; }
     frozen = true;
-    std::cout << "freeze\n";
 
     if(currentBg == I->fieldWhiteDisc){
-        std::cout<< "white one\n";
         this->setPixmap(*I->fieldWhiteDiscFrozen);
     }
     else if (currentBg == I->fieldBlackDisc){
-        std::cout<< "black one\n";
         this->setPixmap(*I->fieldBlackDiscFrozen);
     }
     else{   //field without disc
-        std::cout<< "just Field\n";
         this->setPixmap(*I->fieldFrozen);
     }
 }
@@ -107,7 +103,6 @@ void BoardFieldLabel::freeze(){
  */
 void BoardFieldLabel::unFreeze(){
     frozen = false;
-    std::cout << "unfreeze\n";
     this->setPixmap(*currentBg);
 }
 
