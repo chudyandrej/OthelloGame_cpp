@@ -63,6 +63,7 @@ private:
     void sleepThread(int time);
     void unFreezeWhichCan();
     void unFreezeAll();
+    void loadFrozen(std::list<BoardField*> frozen);
     std::list<BoardField*> frozen;
 };
 

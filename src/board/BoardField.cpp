@@ -117,6 +117,15 @@ void BoardField::freezeDisc(int time){
 }
 
 /**
+ * Method makes the field frozen.
+ */
+void BoardField::setFreeze(){
+    isFreeze = true;
+    freezeEnd = true;
+    UserInt->freezeField(row, col);
+}
+
+/**
  * Method makes the field sleep untill random time is up
  * @param time max time for which will the field sleep
  */

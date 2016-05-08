@@ -50,16 +50,17 @@ public:
     int row;
     int col;
     int size;
-    bool isFreeze;
-    bool freezeEnd;
+    bool isFreeze = false;
+    bool freezeEnd = true;
 
-    BoardField(int row, int col, int size) ;
-    BoardField *nextField(int dirs) ;
+    BoardField(int row, int col, int size);
+    BoardField *nextField(int dirs);
     bool putDisc(Disc *disc);
     Disc* getDisc();
     bool getFreezeEnd();
     void deleteDisc();
     void freezeDisc(int time);
+    void setFreeze();
 
     void sleepFunction(int time);
     std::mutex freezeEndMtx;

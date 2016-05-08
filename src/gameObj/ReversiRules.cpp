@@ -162,6 +162,8 @@ void ReversiRules::uiAlgorithmLevel2(Player *UI) {
         }
     }
     if (!maxTurns.empty()) {
+        backupGame->createNewTurn(best_field->row, best_field->col, UI);
+        backupGame->addTurnedDisc(maxTurns);
         best_field->putDisc(new Disc(UI->getIsWhite()));
         turn_discs(maxTurns);
     }

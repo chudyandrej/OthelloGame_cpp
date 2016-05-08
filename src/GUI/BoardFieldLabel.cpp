@@ -78,6 +78,7 @@ void BoardFieldLabel::setDisc(bool isWhite){
 void BoardFieldLabel::deleteDisc(){
     pressed = false;
     this->setPixmap(*I->field);
+    currentBg = I->field;
 }
 
 /**

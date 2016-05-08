@@ -15,7 +15,7 @@
 
 
 /**
- * Constructor, initializes the game.
+ * Constructor, initializes a game.
  * @param size board size
  * @param discsToFreeze number of disc, which can be made frozen
  * @param CHTime time after which can be discs made unfrozen
@@ -91,6 +91,19 @@ void Game::unFreezeAll(){
 }
 
 /**
+ * Method loads frozen fields
+ * @param frozen list of fields
+ */
+void Game::loadFrozen(std::list<BoardField *> frozen){
+    std::list<BoardField*>::iterator i = frozen.begin();
+    while (i != frozen.end()){
+        (*i)->setFreeze();
+        this->frozen.push_back(*i);
+        i++;
+    }
+}
+
+/**
  * Method checks if any board field change its state to unfrozen
  * and if so, method calls user interface.
  */
@@ -145,7 +158,7 @@ void Game::nextPlayer() {
  */
 void Game::undo() {
 
-    //unFreezAll();
+    unFreezeAll();
     gameOver = false;
     BackupTurn *lastTurn;
 
@@ -160,7 +173,7 @@ void Game::undo() {
         board_fields[x][y]->deleteDisc();
         rules->turn_discs(lastTurn->turnedDiscs);
 
-        //loadFrezed(lastTurn->freeze);
+        loadFrozen(lastTurn->frozenPoints);
         currentPlayer = lastTurn->playerOnTurn;
 
         if (currentPlayer->getIs_pc()){
@@ -176,7 +189,7 @@ void Game::undo() {
  */
 void Game::redo(){
 
-    //unFreezAll();
+    unFreezeAll();
     gameOver = false;
     BackupTurn *lastTurn;
 
@@ -193,9 +206,9 @@ void Game::redo(){
 
         board_fields[x][y]->putDisc(new Disc(currentPlayer->getIsWhite()));
         rules->turn_discs(lastTurn->turnedDiscs);
-        currentPlayer = currentPlayer->getIsWhite() ? black: white;
-        //loadFrezed(lastTurn->freeze);
 
+        loadFrozen(lastTurn->frozenPoints);
+        currentPlayer = currentPlayer->getIsWhite() ? black: white;
         if (currentPlayer->getIs_pc()){
             redo();
         }

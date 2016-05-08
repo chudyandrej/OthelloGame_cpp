@@ -56,6 +56,7 @@ void PlayAreaIcon::mouseReleaseEvent(QMouseEvent *){
             reply = QMessageBox::question(parent, "Reload Game", "<font color='#ffffff'>Would you like to reload game and start again?</font>", QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                 //start new game
+                parent->~PlayArea();
                 grandParent->setWidget(4);
             }
             break;
