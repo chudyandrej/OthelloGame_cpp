@@ -23,7 +23,7 @@ OthelloGUI::OthelloGUI(int argc, char *argv[]) : QApplication(argc, argv){
     boardSize = 8;
     player1Name = "Player1";
     player2Name = "Player2";
-    computerName = "Computer";
+    computerName = "Bot";
 
 
     mainMenuPage = new MainMenu(this);
@@ -134,6 +134,7 @@ void OthelloGUI::initMenuAgain(){
     }
     if(chooseBoardSizePage != nullptr){
         delete chooseBoardSizePage;
+        chooseBoardSizePage = nullptr;
     }
 }
 

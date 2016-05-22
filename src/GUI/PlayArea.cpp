@@ -135,6 +135,7 @@ void PlayArea::initNewGame(){
 
     if(parent->getIsGameSinglePlayer()){
         player2 = new Player(false, parent->getGameMode(), parent->getComputerName());
+        ui->player2NameLabel->setText(QString::fromUtf8(parent->getComputerName().c_str())); //update name label
     }
     else{
         player2 = new Player(false, parent->getP2Name());
